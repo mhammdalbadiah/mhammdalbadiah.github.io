@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>mohammed al-badiah // cloud & devops eng</title>
+<title>mohammed al-badiah // cloud &amp; devops eng</title>
 <meta name="description" content="Mohammed Al-badiah — Cloud & DevOps Engineer. Linux, AWS, automation, infrastructure." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
 
 <style>
   /* ============================================================
-     CATPPUCCIN MOCHA · terminal theme
+     CATPPUCCIN MOCHA · terminal theme · v2
      base #1e1e2e · mantle #181825 · text #cdd6f4
      green #a6e3a1 · blue #89b4fa · mauve #cba6f7
      peach #fab387 · sky #89dceb · pink #f5c2e7 · overlay0 #6c7086
@@ -62,12 +62,14 @@
     color: var(--text);
     font-family: var(--mono);
     font-size: 14.5px;
-    line-height: 1.75;
-    letter-spacing: 0.01em;
+    line-height: 1.8;
+    letter-spacing: 0.012em;
+    font-variant-ligatures: contextual;
     min-height: 100vh;
     padding: 24px 24px calc(var(--bar-h) + 40px);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   /* ---------- CRT layers (very subtle, CSS only) ---------- */
@@ -80,11 +82,31 @@
       transparent 1px,
       transparent 3px
     );
-    opacity: 0.03;
+    opacity: 0.022;
   }
   .crt-glow {
     position: fixed; inset: 0; pointer-events: none; z-index: 9997;
     background: radial-gradient(ellipse at center, transparent 60%, rgba(17,17,27,0.35) 100%);
+  }
+  /* one-shot phosphor sweep, triggered by JS after boot */
+  .phosphor {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    opacity: 0;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(166, 227, 161, 0.045) 48%,
+      rgba(137, 220, 235, 0.03) 52%,
+      transparent 100%);
+    background-size: 100% 60%;
+    background-repeat: no-repeat;
+    background-position: 0 -80%;
+  }
+  .phosphor.run {
+    animation: phosphorSweep 1.6s ease-out 1 forwards;
+  }
+  @keyframes phosphorSweep {
+    0%   { opacity: 1; background-position: 0 -80%; }
+    100% { opacity: 0; background-position: 0 180%; }
   }
 
   ::selection { background: var(--mauve); color: var(--base); text-shadow: none; }
@@ -96,8 +118,9 @@
 
   /* ---------- scroll progress ---------- */
   #progress {
-    position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
     background: var(--blue);
+    box-shadow: 0 0 8px rgba(137, 180, 250, 0.55), 0 0 2px rgba(137, 180, 250, 0.8);
     z-index: 9995;
     transition: width 0.08s linear;
   }
@@ -115,14 +138,14 @@
     background: var(--crust);
     color: var(--green);
     font-family: var(--mono);
-    font-size: 13px; line-height: 1.95;
+    font-size: 13px; line-height: 1.9;
     padding: 42px 28px;
     overflow: hidden;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
   #boot .bl {
     opacity: 0; transform: translateY(3px);
-    transition: opacity 0.28s ease, transform 0.28s ease;
+    transition: opacity 0.22s ease, transform 0.22s ease;
     white-space: pre-wrap;
   }
   #boot .bl.in { opacity: 1; transform: none; }
@@ -133,7 +156,7 @@
     content: "▋"; color: var(--pink);
     animation: blink 1s steps(1) infinite; margin-left: 3px;
   }
-  #boot.done { opacity: 0; pointer-events: none; }
+  #boot.done { opacity: 0; transform: scale(1.005); pointer-events: none; }
 
   /* ---------- TOP BAR ---------- */
   .topbar {
@@ -162,8 +185,9 @@
   nav {
     display: flex; flex-wrap: wrap; gap: 4px;
     padding: 13px 18px;
-    background: rgba(24, 24, 37, 0.88);
+    background: rgba(24, 24, 37, 0.9);
     border-left: 1px solid var(--surface0); border-right: 1px solid var(--surface0);
+    border-bottom: 1px dashed var(--surface1);   /* separator between nav and terminal body */
     font-size: 13px;
     position: sticky; top: 0; z-index: 60;
     backdrop-filter: blur(10px);
@@ -172,14 +196,21 @@
   nav a {
     color: var(--blue); text-decoration: none;
     padding: 4px 11px;
-    transition: color 0.18s ease;
+    transition: color 0.18s ease, text-shadow 0.18s ease;
     position: relative;
   }
   nav a::before { content: "["; color: var(--overlay0); margin-right: 2px; transition: color 0.18s ease; }
   nav a::after  { content: "]"; color: var(--overlay0); margin-left: 2px; transition: color 0.18s ease; }
-  nav a:hover { color: var(--pink); }
+  nav a:hover { color: var(--pink); text-shadow: 0 0 10px rgba(245, 194, 231, 0.35); }
   nav a:hover::before, nav a:hover::after { color: var(--pink); }
-  nav a.active { color: var(--green); box-shadow: inset 0 -2px 0 var(--green); }
+  nav a:focus-visible {
+    outline: 1px solid var(--green); outline-offset: 2px;
+  }
+  nav a.active {
+    color: var(--green);
+    box-shadow: inset 0 -2px 0 var(--green);
+    text-shadow: 0 0 12px rgba(166, 227, 161, 0.3);
+  }
   nav a.active::before, nav a.active::after { color: var(--green); }
 
   /* ---------- TERMINAL CONTAINER ---------- */
@@ -187,7 +218,7 @@
     background: var(--mantle);
     border: 1px solid var(--surface0); border-top: none;
     border-radius: 0 0 8px 8px;
-    padding: 34px 30px 42px;
+    padding: 36px 32px 44px;
   }
 
   /* ---------- PROMPT LINE ---------- */
@@ -195,7 +226,8 @@
   .prompt {
     display: flex; align-items: baseline; gap: 8px;
     margin-bottom: 8px; flex-wrap: wrap;
-    font-size: 13px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
   }
   .prompt .user  { color: var(--green); font-weight: 700; }
   .prompt .at    { color: var(--blue); }
@@ -220,6 +252,7 @@
   .ascii {
     font-size: 11px; color: var(--green); line-height: 1.1;
     white-space: pre; margin: 18px 0 22px; overflow-x: auto;
+    font-variant-ligatures: none;
   }
   .ascii.pre-reveal { opacity: 0; }
   .ascii.reveal-in { animation: asciiIn 0.6s ease forwards; }
@@ -237,7 +270,7 @@
 
   /* staggered hero pieces */
   .hero-piece { opacity: 0; transform: translateY(10px); }
-  .hero-piece.in { animation: pieceIn 0.55s ease forwards; }
+  .hero-piece.in { animation: pieceIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
   @keyframes pieceIn { to { opacity: 1; transform: translateY(0); } }
 
   .id-card {
@@ -252,62 +285,73 @@
   .tagline {
     color: var(--subtext0); font-size: 14px; margin-top: 14px;
     padding-left: 16px; border-left: 2px solid var(--surface0);
-    line-height: 1.8; transition: border-color 0.3s ease;
+    line-height: 1.85; transition: border-color 0.3s ease;
   }
   .tagline:hover { border-color: var(--green); }
   .tagline .hl { color: var(--text); font-weight: 500; }
 
   /* ---------- SECTIONS ---------- */
-  section { margin-top: 52px; scroll-margin-top: 72px; }
+  section { margin-top: 56px; scroll-margin-top: 76px; }
 
   .reveal {
     opacity: 0; transform: translateY(22px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.65s cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
     will-change: opacity, transform;
   }
   .reveal.shown { opacity: 1; transform: translateY(0); }
 
+  /* staggered "command output" feel: children of a revealed grid trickle in */
+  .reveal .card { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s ease, background 0.2s ease; }
+  .reveal.shown .card { opacity: 1; transform: translateY(0); }
+  .reveal.shown .card:nth-child(1) { transition-delay: 0.05s; }
+  .reveal.shown .card:nth-child(2) { transition-delay: 0.14s; }
+  .reveal.shown .card:nth-child(3) { transition-delay: 0.23s; }
+  .reveal.shown .card:nth-child(4) { transition-delay: 0.32s; }
+  .reveal.shown .card:nth-child(5) { transition-delay: 0.41s; }
+  .reveal.shown .card:nth-child(6) { transition-delay: 0.50s; }
+
   /* tmux-style pane separator: ── name ─────────────── */
   .section-head {
     display: flex; align-items: center; gap: 10px;
-    margin-bottom: 18px; padding-bottom: 10px;
+    margin-bottom: 20px; padding-bottom: 10px;
     border-bottom: 1px dashed var(--surface1);
   }
   .section-head::before { content: "──"; color: var(--overlay0); letter-spacing: -1px; }
   .section-head .hash { color: var(--mauve); font-weight: 700; }
-  .section-head h2 { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: 0.5px; }
+  .section-head h2 { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: 0.6px; }
   .section-head .meta { margin-left: auto; color: var(--overlay0); font-size: 11px; }
 
   /* ---------- CARDS (flat terminal output blocks) ---------- */
-  .card-grid { display: grid; gap: 14px; padding-left: 12px; }
+  .card-grid { display: grid; gap: 16px; padding-left: 12px; }
   .card {
     background: var(--base);
     border: 1px solid var(--surface0);
-    padding: 16px 18px;
-    transition: border-color 0.2s ease;
+    padding: 18px 20px;
     position: relative;
   }
   .card::before {
-    content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 2px;
+    content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 3px;
     background: var(--green);
-    transform: scaleY(0); transition: transform 0.25s ease; transform-origin: top;
+    box-shadow: 0 0 8px rgba(166, 227, 161, 0.35);
+    transform: scaleY(0); transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1); transform-origin: top;
   }
-  .card:hover { border-color: var(--surface1); }
+  .card:hover { border-color: var(--surface1); background: #20202f; }
   .card:hover::before { transform: scaleY(1); }
 
   .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
-  .card-title { color: var(--text); font-weight: 700; font-size: 15px; transition: color 0.2s ease; }
-  .card:hover .card-title { color: var(--green); }
+  .card-title { color: var(--text); font-weight: 700; font-size: 15px; transition: color 0.2s ease, text-shadow 0.2s ease; }
+  .card:hover .card-title { color: var(--green); text-shadow: 0 0 14px rgba(166, 227, 161, 0.25); }
   .card-title .arrow { color: var(--green); margin-right: 6px; }
   .card-meta { color: var(--overlay0); font-size: 11px; white-space: nowrap; }
-  .card-desc { color: var(--subtext0); font-size: 13.5px; line-height: 1.7; margin: 6px 0 10px; }
+  .card-desc { color: var(--subtext0); font-size: 13.5px; line-height: 1.75; margin: 6px 0 10px; }
 
   /* ---------- TECH TAGS (flat bracket badges) ---------- */
   .tags { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 12px; }
   .tag {
     font-size: 12px;
     background: none; border: none; padding: 0; border-radius: 0;
-    transition: opacity 0.18s ease;
+    transition: filter 0.18s ease, text-shadow 0.18s ease;
   }
   .tag::before { content: "["; color: var(--overlay0); }
   .tag::after  { content: "]"; color: var(--overlay0); }
@@ -316,17 +360,18 @@
   .tags .tag:nth-child(4n+2) { color: var(--sky); }
   .tags .tag:nth-child(4n+3) { color: var(--peach); }
   .tags .tag:nth-child(4n)   { color: var(--green); }
-  .tag:hover { opacity: 0.8; }
+  .tag:hover { filter: brightness(1.2); text-shadow: 0 0 10px currentColor; }
   .tag.hl { font-weight: 700; }
 
   /* ---------- LINKS ---------- */
   .card-links { display: flex; gap: 14px; margin-top: 12px; font-size: 12px; }
   .card-links a {
     color: var(--blue); text-decoration: none;
-    transition: color 0.18s ease;
+    transition: color 0.18s ease, text-shadow 0.18s ease;
   }
-  .card-links a:hover { color: var(--pink); }
+  .card-links a:hover { color: var(--pink); text-shadow: 0 0 10px rgba(245, 194, 231, 0.4); }
   .card-links a:hover::before { content: "> "; }
+  .card-links a:focus-visible { outline: 1px solid var(--green); outline-offset: 2px; }
   .card-links span.disabled { color: var(--overlay0); }
 
   /* ---------- LANGUAGES ---------- */
@@ -350,6 +395,26 @@
   .lang .lbar i:nth-child(4) { transition-delay: 0.26s; }
   .lang .lbar i:nth-child(5) { transition-delay: 0.33s; }
 
+  /* ---------- ROADMAP ---------- */
+  .roadmap-block {
+    background: var(--base);
+    border: 1px solid var(--surface0);
+    padding: 18px 22px;
+    margin-left: 12px;
+    font-size: 13.5px;
+    line-height: 2.1;
+    transition: border-color 0.25s ease;
+  }
+  .roadmap-block:hover { border-color: var(--surface1); }
+  .rm-line { white-space: pre-wrap; color: var(--subtext0); }
+  .rm-line .rm-box { font-weight: 700; margin-right: 10px; font-variant-ligatures: none; }
+  .rm-line .rm-prog { color: var(--peach); text-shadow: 0 0 10px rgba(250, 179, 135, 0.25); }
+  .rm-line .rm-todo { color: var(--overlay0); }
+  .rm-line .rm-done { color: var(--green); }
+  .rm-line .rm-note { color: var(--peach); font-size: 12px; }
+  .rm-line .rm-name { color: var(--text); }
+  .rm-line.dim .rm-name { color: var(--subtext0); }
+
   /* ---------- CONTACT ---------- */
   .contact-block {
     background: var(--base);
@@ -367,16 +432,17 @@
   .contact-line .k { color: var(--overlay0); font-size: 12px; }
   .contact-line .v a {
     color: var(--blue); text-decoration: none;
-    transition: color 0.15s ease;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
   }
-  .contact-line .v a:hover { color: var(--pink); }
+  .contact-line .v a:hover { color: var(--pink); text-shadow: 0 0 10px rgba(245, 194, 231, 0.4); }
   .contact-line .v a:hover::before { content: "> "; }
+  .contact-line .v a:focus-visible { outline: 1px solid var(--green); outline-offset: 2px; }
 
   /* ---------- FOOTER ---------- */
   footer {
-    margin-top: 52px; padding-top: 24px;
+    margin-top: 56px; padding-top: 24px;
     border-top: 1px dashed var(--surface1);
-    color: var(--overlay0); font-size: 11.5px; line-height: 1.8;
+    color: var(--overlay0); font-size: 11.5px; line-height: 1.85;
   }
   footer .out { color: var(--green); }
   footer .exit-cursor::after {
@@ -391,9 +457,12 @@
     border-top: 1px solid var(--surface0);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    transition: border-color 0.25s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
   }
-  #console.focused { border-top-color: var(--green); }
+  #console.focused {
+    border-top-color: var(--green);
+    box-shadow: 0 -4px 22px rgba(166, 227, 161, 0.06);
+  }
   .console-inner { max-width: 860px; margin: 0 auto; padding: 0 18px; }
   #console-out {
     max-height: 0; overflow-y: auto; overflow-x: hidden;
@@ -401,8 +470,8 @@
     transition: max-height 0.3s ease, padding 0.3s ease;
     padding: 0;
   }
-  #console-out.open { max-height: 32vh; padding: 12px 0 6px; border-bottom: 1px dashed var(--surface0); }
-  #console-out .o { white-space: pre-wrap; word-break: break-word; padding-left: 8px; }
+  #console-out.open { max-height: 34vh; padding: 12px 0 6px; border-bottom: 1px dashed var(--surface0); }
+  #console-out .o { white-space: pre-wrap; word-break: break-word; padding-left: 8px; font-variant-ligatures: none; }
   #console-out .o .c-user { color: var(--green); font-weight: 700; }
   #console-out .o .c-host { color: var(--blue); font-weight: 700; }
   #console-out .o .c-mut { color: var(--overlay0); }
@@ -411,6 +480,8 @@
   #console-out .o .c-warn { color: var(--peach); }
   #console-out .o .c-err { color: var(--red); }
   #console-out .o .c-key { color: var(--mauve); font-weight: 700; }
+  #console-out .o .c-sky { color: var(--sky); }
+  #console-out .o .c-pink { color: var(--pink); }
   #console-out .o a { color: var(--blue); text-decoration: none; }
   #console-out .o a:hover { color: var(--pink); }
 
@@ -443,7 +514,7 @@
   @media (max-width: 640px) {
     body { padding: 12px 12px calc(var(--bar-h) + 26px); font-size: 13.5px; }
     #boot { padding: 24px 16px; font-size: 12px; line-height: 1.85; }
-    .terminal { padding: 24px 18px 32px; }
+    .terminal { padding: 26px 18px 34px; }
     nav { padding: 11px 13px; gap: 2px; font-size: 12px; }
     nav a { padding: 3px 7px; }
     .prompt { font-size: 12px; }
@@ -454,8 +525,10 @@
     .contact-line .k { margin-top: 8px; }
     .topbar-title { display: none; }
     .card-meta { font-size: 10px; }
+    .card { padding: 18px 16px; }
+    .card-grid { gap: 14px; }
     .card-grid, .lang-grid { padding-left: 0; }
-    .contact-block { margin-left: 0; }
+    .contact-block, .roadmap-block { margin-left: 0; padding: 18px 16px; }
     .console-hint { display: none; }
     .console-inner { padding: 0 12px; }
     #console-out.open { max-height: 40vh; }
@@ -470,10 +543,12 @@
 
   /* ---------- REDUCED MOTION ---------- */
   @media (prefers-reduced-motion: reduce) {
-    .pcur, footer .exit-cursor::after, #boot .bcur::after, .topbar-status .ping { animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .pcur, footer .exit-cursor::after, #boot .bcur::after, .topbar-status .ping { animation: none !important; }
+    .reveal, .reveal .card { opacity: 1; transform: none; transition: none; }
     .ascii.pre-reveal { opacity: 1; }
     .hero-piece { opacity: 1; transform: none; }
+    .phosphor, .phosphor.run { animation: none !important; opacity: 0 !important; }
+    .shown .lang .lbar i.fill { transition: none; }
     html { scroll-behavior: auto; }
   }
 </style>
@@ -482,6 +557,7 @@
 
 <div class="crt-lines" aria-hidden="true"></div>
 <div class="crt-glow" aria-hidden="true"></div>
+<div class="phosphor" id="phosphor" aria-hidden="true"></div>
 <div id="progress" aria-hidden="true"></div>
 
 <!-- fake boot / init sequence -->
@@ -501,24 +577,25 @@
 
   <!-- terminal window chrome -->
   <div class="topbar">
-    <div class="topbar-dots">
+    <div class="topbar-dots" aria-hidden="true">
       <span class="dot r"></span>
       <span class="dot y"></span>
       <span class="dot g"></span>
     </div>
-    <div class="topbar-title">mohammed@arch ~ — zsh</div>
+    <div class="topbar-title">mohammed@arch ~ — fish</div>
     <div class="topbar-status">
-      <span class="clock" id="clock">--:--:--</span>
-      <span class="stat"><span class="ping"></span><span>online</span></span>
+      <span class="clock" id="clock" aria-hidden="true">--:--:--</span>
+      <span class="stat"><span class="ping" aria-hidden="true"></span><span>online</span></span>
     </div>
   </div>
 
   <!-- nav -->
-  <nav>
+  <nav aria-label="Site navigation">
     <a href="#about">about</a>
     <a href="#certs">certs</a>
     <a href="#projects">projects</a>
     <a href="#stack">stack</a>
+    <a href="#roadmap">roadmap</a>
     <a href="#contact">contact</a>
   </nav>
 
@@ -544,16 +621,17 @@
         <span class="key">name</span>      <span class="val">Mohammed Abdullah Al-badiah</span>
         <span class="key">role</span>      <span class="val"><span class="accent">Cloud &amp; DevOps Engineer</span></span>
         <span class="key">based</span>     <span class="val">Riyadh, Saudi Arabia</span>
-        <span class="key">studying</span>  <span class="val">B.Sc. Information Technology · Majmaah University</span>
+        <span class="key">studying</span>  <span class="val">B.Sc. Information Technology · Majmaah University <span style="color:var(--fg-mute)">(Cybersecurity)</span></span>
         <span class="key">os</span>        <span class="val">Arch Linux <span style="color:var(--fg-mute)">(yes, I use it btw)</span></span>
         <span class="key">status</span>    <span class="val"><span class="accent">open to opportunities</span></span>
       </div>
 
       <div class="tagline hero-piece">
         I build, automate, and operate <span class="hl">cloud infrastructure</span> and Linux systems.
-        I run a <span class="hl">private cloud</span> at home, write tools to make my workflow faster,
-        and care about clean, maintainable code. Currently sharpening my skills toward
-        <span class="hl">AWS</span> and modern DevOps stacks.
+        I run a <span class="hl">homelab</span> with a Proxmox hypervisor and Raspberry Pi,
+        write tools to make my workflow faster, and care about <span class="hl">clean,
+        maintainable code</span>. Currently preparing for <span class="hl">AWS Solutions Architect
+        Associate (SAA-C03)</span> and sharpening my skills toward modern DevOps stacks.
       </div>
 
       <div class="prompt hero-piece" style="margin-top: 26px;">
@@ -563,7 +641,7 @@
       <div class="tagline hero-piece" style="margin-top: 6px;">
         <span style="color:var(--accent)">&gt;</span> Linux systems administration, shell scripting &amp; automation<br>
         <span style="color:var(--accent)">&gt;</span> Cloud platforms (AWS focus), containers, infrastructure as code<br>
-        <span style="color:var(--accent)">&gt;</span> Self-hosting, homelab engineering, on-prem AI inference<br>
+        <span style="color:var(--accent)">&gt;</span> Homelab engineering — Proxmox, Kubernetes, CI/CD, SIEM<br>
         <span style="color:var(--accent)">&gt;</span> CLI tooling in Go &amp; Python · backend services &amp; APIs
       </div>
     </section>
@@ -600,7 +678,7 @@
             <span class="tag">IAM</span>
           </div>
           <div class="card-links">
-            <a href="https://coursera.org/verify/6543TYIV34EJ" target="_blank" rel="noopener">verify ↗</a>
+            <a href="https://coursera.org/verify/6543TYIV34EJ" target="_blank" rel="noopener" aria-label="Verify AWS Cloud Technical Essentials certificate">verify ↗</a>
           </div>
         </div>
 
@@ -622,7 +700,7 @@
             <span class="tag">IBM</span>
           </div>
           <div class="card-links">
-            <a href="https://coursera.org/verify/DK6S6V4AV6JZ" target="_blank" rel="noopener">verify ↗</a>
+            <a href="https://coursera.org/verify/DK6S6V4AV6JZ" target="_blank" rel="noopener" aria-label="Verify IBM Relational Database Administration certificate">verify ↗</a>
           </div>
         </div>
 
@@ -642,7 +720,7 @@
             <span class="tag">UIUC</span>
           </div>
           <div class="card-links">
-            <a href="https://coursera.org/verify/7US5T3TR0IWB" target="_blank" rel="noopener">verify ↗</a>
+            <a href="https://coursera.org/verify/7US5T3TR0IWB" target="_blank" rel="noopener" aria-label="Verify UIUC C++ Data Structures certificate">verify ↗</a>
           </div>
         </div>
 
@@ -661,7 +739,7 @@
             <span class="tag">U-M</span>
           </div>
           <div class="card-links">
-            <a href="https://coursera.org/verify/1LM068I1FOE2" target="_blank" rel="noopener">verify ↗</a>
+            <a href="https://coursera.org/verify/1LM068I1FOE2" target="_blank" rel="noopener" aria-label="Verify University of Michigan SQL certificate">verify ↗</a>
           </div>
         </div>
 
@@ -677,33 +755,57 @@
       <div class="section-head">
         <span class="hash">##</span>
         <h2>projects</h2>
-        <span class="meta">4 active</span>
+        <span class="meta">6 active</span>
       </div>
 
       <div class="card-grid">
 
-        <!-- Private Cloud -->
+        <!-- Homelab -->
         <div class="card">
           <div class="card-head">
-            <div class="card-title"><span class="arrow">&rarr;</span>Private Cloud · NAS &amp; Local AI</div>
-            <div class="card-meta">homelab</div>
+            <div class="card-title"><span class="arrow">&rarr;</span>Homelab — Proxmox + Raspberry Pi</div>
+            <div class="card-meta">infrastructure</div>
           </div>
           <div class="card-desc">
-            Self-hosted personal cloud running on a Raspberry Pi 5 paired with a workstation node
-            (i7-11700, RTX 3060, 32GB RAM). Network attached storage, system monitoring dashboard,
-            and on-prem AI inference using Ollama — accessible through a custom React + Vite + Tailwind
-            dashboard. Replaces the need for third-party cloud storage and hosted LLMs.
+            Self-hosted homelab running on a Xeon E5-2690 server (32GB RAM, Proxmox VE)
+            paired with a Raspberry Pi 5. The Xeon runs VMs for Kubernetes (k3s),
+            Jenkins CI/CD, Wazuh SIEM, pfSense firewall, Pi-hole DNS, and MinIO
+            object storage. The Raspberry Pi handles NAS (Samba), Tailscale gateway,
+            PaperMC Minecraft server, and a custom Arabic Matrix rain OLED display.
+            All accessible remotely via Tailscale mesh VPN.
           </div>
           <div class="tags">
-            <span class="tag hl">Linux</span>
-            <span class="tag">Raspberry Pi</span>
-            <span class="tag">Ollama</span>
-            <span class="tag">Python</span>
-            <span class="tag">React</span>
-            <span class="tag">NAS</span>
+            <span class="tag hl">Proxmox</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Jenkins</span>
+            <span class="tag">Wazuh</span>
+            <span class="tag">pfSense</span>
+            <span class="tag">Tailscale</span>
+            <span class="tag">Linux</span>
           </div>
           <div class="card-links">
             <span class="disabled">private repo</span>
+          </div>
+        </div>
+
+        <!-- snap -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title"><span class="arrow">&rarr;</span>snap — backup tool</div>
+            <div class="card-meta">2026</div>
+          </div>
+          <div class="card-desc">
+            Backup tool written in Go with file deduplication and snapshot support.
+            Designed for efficient incremental backups with content-addressable storage.
+          </div>
+          <div class="tags">
+            <span class="tag hl">Go</span>
+            <span class="tag">CLI</span>
+            <span class="tag">Backup</span>
+            <span class="tag">Deduplication</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/mhammdalbadiah/snap" target="_blank" rel="noopener" aria-label="snap source on GitHub">source ↗</a>
           </div>
         </div>
 
@@ -726,7 +828,7 @@
             <span class="tag">OOP</span>
           </div>
           <div class="card-links">
-            <a href="https://github.com/mhammdalbadiah/AirlineSystem" target="_blank" rel="noopener">source ↗</a>
+            <a href="https://github.com/mhammdalbadiah/AirlineSystem" target="_blank" rel="noopener" aria-label="AirlineSystem source on GitHub">source ↗</a>
           </div>
         </div>
 
@@ -748,28 +850,52 @@
             <span class="tag">Automation</span>
           </div>
           <div class="card-links">
-            <a href="https://github.com/mhammdalbadiah/G" target="_blank" rel="noopener">source ↗</a>
+            <a href="https://github.com/mhammdalbadiah/G" target="_blank" rel="noopener" aria-label="g task runner source on GitHub">source ↗</a>
           </div>
         </div>
 
-        <!-- SILM -->
+        <!-- media-club-mu -->
         <div class="card">
           <div class="card-head">
-            <div class="card-title"><span class="arrow">&rarr;</span>SILM Website · Backend Development</div>
-            <div class="card-meta">Saudi Media Forum</div>
+            <div class="card-title"><span class="arrow">&rarr;</span>media-club-mu</div>
+            <div class="card-meta">2026</div>
           </div>
           <div class="card-desc">
-            Backend development for the SILM platform — a project that took part in the
-            Saudi Media Forum. Worked on server-side logic, API endpoints, and data flow
-            powering the public-facing website.
+            Frontend website built for the Media Club at Majmaah University.
+            Designed and developed the public-facing site for the club's events,
+            news, and member information.
           </div>
           <div class="tags">
-            <span class="tag hl">Backend</span>
-            <span class="tag">API</span>
+            <span class="tag hl">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
             <span class="tag">Web</span>
           </div>
           <div class="card-links">
-            <span class="disabled">private project</span>
+            <a href="https://github.com/mhammdalbadiah/media-club-mu" target="_blank" rel="noopener" aria-label="media-club-mu source on GitHub">source ↗</a>
+          </div>
+        </div>
+
+        <!-- cloud-labs -->
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title"><span class="arrow">&rarr;</span>cloud-labs</div>
+            <div class="card-meta">ongoing</div>
+          </div>
+          <div class="card-desc">
+            Personal lab notes and experiments covering Linux administration,
+            networking, Bash scripting, Raspberry Pi projects, and cloud systems.
+            A living repository of hands-on learning documentation.
+          </div>
+          <div class="tags">
+            <span class="tag hl">Linux</span>
+            <span class="tag">Bash</span>
+            <span class="tag">Networking</span>
+            <span class="tag">AWS</span>
+            <span class="tag">Documentation</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/mhammdalbadiah/cloud-labs" target="_blank" rel="noopener" aria-label="cloud-labs source on GitHub">source ↗</a>
           </div>
         </div>
 
@@ -785,17 +911,18 @@
       <div class="section-head">
         <span class="hash">##</span>
         <h2>stack &amp; languages</h2>
-        <span class="meta">7 langs</span>
+        <span class="meta">8 langs</span>
       </div>
 
       <div class="lang-grid">
-        <div class="lang"><span class="lname">C++</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i></span></div>
-        <div class="lang"><span class="lname">Go</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-        <div class="lang"><span class="lname">Python</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-        <div class="lang"><span class="lname">Bash</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-        <div class="lang"><span class="lname">JavaScript</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i><i></i></span></div>
-        <div class="lang"><span class="lname">HTML</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-        <div class="lang"><span class="lname">CSS</span><span class="lbar"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">C++</span><span class="lbar" aria-label="C++ proficiency 5 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i></span></div>
+        <div class="lang"><span class="lname">Go</span><span class="lbar" aria-label="Go proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">Python</span><span class="lbar" aria-label="Python proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">Bash</span><span class="lbar" aria-label="Bash proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">SQL</span><span class="lbar" aria-label="SQL proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">JavaScript</span><span class="lbar" aria-label="JavaScript proficiency 3 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i><i></i></span></div>
+        <div class="lang"><span class="lname">HTML</span><span class="lbar" aria-label="HTML proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+        <div class="lang"><span class="lname">CSS</span><span class="lbar" aria-label="CSS proficiency 4 of 5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
       </div>
 
       <div style="margin-top:18px;">
@@ -809,16 +936,48 @@
           <span class="tag">Ubuntu</span>
           <span class="tag">Git</span>
           <span class="tag">Docker</span>
-          <span class="tag">SQL</span>
-          <span class="tag">AWS (in progress)</span>
+          <span class="tag">Proxmox</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">AWS</span>
+          <span class="tag">Tailscale</span>
+          <span class="tag">Pi-hole</span>
+          <span class="tag">Wazuh</span>
+          <span class="tag">Suricata</span>
+          <span class="tag">pfSense</span>
+          <span class="tag">MinIO</span>
+          <span class="tag">HashiCorp Vault</span>
           <span class="tag">Ollama</span>
+          <span class="tag">fish</span>
           <span class="tag">Make</span>
-          <span class="tag">VirtualBox</span>
-          <span class="tag">Tailwind</span>
           <span class="tag">React</span>
           <span class="tag">Vite</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">Neovim</span>
           <span class="tag">VS Code</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="reveal">
+      <div class="prompt">
+        <span class="user">mohammed</span><span class="at">@</span><span class="host">arch</span><span class="colon">:</span><span class="path">~/goals</span><span class="arrow">$</span>
+        <span class="cmd">cat</span> <span class="arg">roadmap.md</span><span class="pcur"></span>
+      </div>
+      <div class="section-head">
+        <span class="hash">##</span>
+        <h2>roadmap</h2>
+        <span class="meta">certification path</span>
+      </div>
+
+      <div class="roadmap-block">
+        <div class="rm-line"><span class="rm-box rm-prog">[~]</span><span class="rm-name">AWS Solutions Architect Associate (SAA-C03)</span> <span class="rm-note">— in progress</span></div>
+        <div class="rm-line dim"><span class="rm-box rm-todo">[ ]</span><span class="rm-name">CKA (Certified Kubernetes Administrator)</span></div>
+        <div class="rm-line dim"><span class="rm-box rm-todo">[ ]</span><span class="rm-name">Terraform Associate</span></div>
+        <div class="rm-line dim"><span class="rm-box rm-todo">[ ]</span><span class="rm-name">AWS DevOps Engineer Professional (DOP-C02)</span></div>
+        <div class="rm-line dim"><span class="rm-box rm-todo">[ ]</span><span class="rm-name">AWS SysOps Administrator (SOA-C02)</span></div>
       </div>
     </section>
 
@@ -875,13 +1034,13 @@
 </div>
 
 <!-- docked interactive command line -->
-<div id="console">
+<div id="console" role="region" aria-label="Interactive terminal console">
   <div class="console-inner">
     <div id="console-out" aria-live="polite"></div>
     <div class="console-line">
-      <span class="console-ps"><span class="u">mohammed</span><span class="a">@</span><span class="h">arch</span><span class="c">:</span><span class="p">~</span><span class="d">$</span></span>
+      <span class="console-ps" aria-hidden="true"><span class="u">mohammed</span><span class="a">@</span><span class="h">arch</span><span class="c">:</span><span class="p">~</span><span class="d">$</span></span>
       <input id="console-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal command input" placeholder="type a command — try 'help'" />
-      <span class="console-hint">press <b>/</b> to focus</span>
+      <span class="console-hint" aria-hidden="true">press <b>/</b> to focus</span>
     </div>
   </div>
 </div>
@@ -893,13 +1052,16 @@
     var reduceMotion = window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    var pageLoadTime = Date.now();
+
     var $  = function (s) { return document.querySelector(s); };
     var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
 
-    var boot      = $("#boot");
-    var heroCmd   = $("#hero-cmd");
-    var heroAscii = $("#hero-ascii");
+    var boot       = $("#boot");
+    var heroCmd    = $("#hero-cmd");
+    var heroAscii  = $("#hero-ascii");
     var heroPieces = $$(".hero-piece");
+    var phosphor   = $("#phosphor");
 
     /* ============ live clock ============ */
     var clockEl = $("#clock");
@@ -926,7 +1088,7 @@
     function staggerHero() {
       if (reduceMotion) { heroPieces.forEach(function (el) { el.classList.add("in"); }); return; }
       heroPieces.forEach(function (el, i) {
-        setTimeout(function () { el.classList.add("in"); }, 140 * i + 120);
+        setTimeout(function () { el.classList.add("in"); }, 130 * i + 100);
       });
     }
     function typeHero(done) {
@@ -942,14 +1104,25 @@
       (function step() {
         if (i <= text.length) {
           heroCmd.textContent = text.slice(0, i);
-          i++; setTimeout(step, 78);
+          i++;
+          /* human-like variable keystroke timing */
+          setTimeout(step, 55 + Math.random() * 60);
         } else {
           heroAscii.classList.remove("pre-reveal");
           heroAscii.classList.add("reveal-in");
-          setTimeout(staggerHero, 220);
+          setTimeout(staggerHero, 200);
           if (done) done();
         }
       })();
+    }
+
+    /* ============ phosphor glow sweep (once, after boot) ============ */
+    function runPhosphor() {
+      if (reduceMotion || !phosphor) return;
+      phosphor.classList.add("run");
+      phosphor.addEventListener("animationend", function () {
+        if (phosphor.parentNode) phosphor.parentNode.removeChild(phosphor);
+      });
     }
 
     /* ============ boot ============ */
@@ -964,15 +1137,16 @@
       }
       var lines = $$("#boot .bl");
       lines.forEach(function (ln, i) {
-        setTimeout(function () { ln.classList.add("in"); }, 150 * i);
+        setTimeout(function () { ln.classList.add("in"); }, 105 * i);
       });
-      var hold = 150 * lines.length + 650;
+      var hold = 105 * lines.length + 480;
       setTimeout(function () {
         boot.classList.add("done");
         setTimeout(function () {
           if (boot.parentNode) boot.parentNode.removeChild(boot);
+          runPhosphor();
           typeHero(startObservers);
-        }, 560);
+        }, 480);
       }, hold);
     }
 
@@ -992,7 +1166,7 @@
           entries.forEach(function (en) {
             if (en.isIntersecting) { en.target.classList.add("shown"); revObs.unobserve(en.target); }
           });
-        }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
+        }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
         revealEls.forEach(function (el) { revObs.observe(el); });
       } else {
         revealEls.forEach(function (el) { el.classList.add("shown"); });
@@ -1040,17 +1214,25 @@
 
     var PS1 = '<span class="c-user">mohammed</span><span class="c-mut">@</span><span class="c-host">arch</span><span class="c-mut">:</span><span class="c-mut">~</span><span class="c-user">$</span> ';
 
+    var LINKS = {
+      github:   "https://github.com/mhammdalbadiah",
+      linkedin: "https://www.linkedin.com/in/mohammed-al-badiah-7b4294321",
+      email:    "mailto:m.a.albadiah@gmail.com"
+    };
+
     var routes = {
       about:    "about",   whoami: "about",   focus: "about",
       certs:    "certs",   ls: "certs",
       projects: "projects",tree: "projects",
       stack:    "stack",   which: "stack",
+      roadmap:  "roadmap", goals: "roadmap",
       contact:  "contact", connect: "contact"
     };
 
     var commands = [
       "help", "about", "whoami", "certs", "ls", "projects", "tree",
-      "stack", "which", "contact", "connect", "focus",
+      "stack", "which", "roadmap", "contact", "connect", "focus",
+      "neofetch", "resume", "github", "email",
       "clear", "pwd", "date", "history", "exit"
     ];
 
@@ -1077,10 +1259,60 @@
         '  <span class="c-cmd">certs</span> / <span class="c-cmd">ls</span>        list certifications\n' +
         '  <span class="c-cmd">projects</span> / <span class="c-cmd">tree</span>   show projects\n' +
         '  <span class="c-cmd">stack</span> / <span class="c-cmd">which</span>     stack &amp; languages\n' +
+        '  <span class="c-cmd">roadmap</span>            certification roadmap\n' +
         '  <span class="c-cmd">contact</span> / <span class="c-cmd">connect</span> contact details\n' +
+        '  <span class="c-cmd">neofetch</span>           system info\n' +
+        '  <span class="c-cmd">resume</span>             open LinkedIn\n' +
+        '  <span class="c-cmd">github</span>             open GitHub\n' +
+        '  <span class="c-cmd">email</span>              send me an email\n' +
         '  <span class="c-cmd">pwd</span> · <span class="c-cmd">date</span> · <span class="c-cmd">history</span> · <span class="c-cmd">clear</span>\n' +
         '  <span class="c-mut">tip:</span> Up/Down = history · Tab = autocomplete · Esc = blur'
       );
+    }
+
+    function uptimeStr() {
+      var s = Math.floor((Date.now() - pageLoadTime) / 1000);
+      var m = Math.floor(s / 60); s = s % 60;
+      return (m > 0 ? m + "m " : "") + s + "s";
+    }
+
+    function neofetch() {
+      var logo = [
+        '<span class="c-sky">        /\\        </span>',
+        '<span class="c-sky">       /  \\       </span>',
+        '<span class="c-sky">      /\\   \\      </span>',
+        '<span class="c-sky">     /  __  \\     </span>',
+        '<span class="c-sky">    /  (  )  \\    </span>',
+        '<span class="c-sky">   / _.~  ~._ \\   </span>',
+        '<span class="c-sky">  /.^        ^.\\  </span>',
+        '                  ',
+        '                  ',
+        '                  '
+      ];
+      var info = [
+        '<span class="c-user">mohammed</span><span class="c-mut">@</span><span class="c-host">arch</span>',
+        '<span class="c-mut">─────────────────────</span>',
+        '<span class="c-key">OS</span><span class="c-mut">:</span>       Arch Linux x86_64',
+        '<span class="c-key">Host</span><span class="c-mut">:</span>     portfolio v2.0',
+        '<span class="c-key">Kernel</span><span class="c-mut">:</span>   6.9.1-zen',
+        '<span class="c-key">Shell</span><span class="c-mut">:</span>    fish',
+        '<span class="c-key">WM</span><span class="c-mut">:</span>       Hyprland',
+        '<span class="c-key">Theme</span><span class="c-mut">:</span>    Catppuccin Mocha',
+        '<span class="c-key">Editor</span><span class="c-mut">:</span>   Neovim',
+        '<span class="c-key">Uptime</span><span class="c-mut">:</span>   ' + uptimeStr()
+      ];
+      var lines = [];
+      for (var i = 0; i < info.length; i++) {
+        lines.push((logo[i] || '                  ') + info[i]);
+      }
+      lines.push('');
+      lines.push('<span class="c-sky">██</span><span class="c-ok">██</span><span class="c-warn">██</span><span class="c-pink">██</span><span class="c-key">██</span><span class="c-err">██</span>');
+      print(lines.join("\n"));
+    }
+
+    function openLink(url, label) {
+      print('<span class="c-ok">opening ' + label + ' …</span>');
+      window.open(url, url.indexOf("mailto:") === 0 ? "_self" : "_blank", "noopener");
     }
 
     function run(raw) {
@@ -1104,6 +1336,10 @@
       }
       if (cmd === "echo") { print(escapeHtml(arg)); return; }
       if (cmd === "sudo") { print('<span class="c-warn">mohammed is not in the sudoers file. This incident will be reported.</span>'); return; }
+      if (cmd === "neofetch") { neofetch(); return; }
+      if (cmd === "resume") { openLink(LINKS.linkedin, "LinkedIn"); return; }
+      if (cmd === "github") { openLink(LINKS.github, "GitHub"); return; }
+      if (cmd === "email" || cmd === "mail") { openLink(LINKS.email, "mail client"); return; }
       if (cmd === "exit" || cmd === "logout") {
         print('<span class="c-ok">logout — connection closed.</span>');
         window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
@@ -1112,8 +1348,9 @@
 
       // cat with known args
       if (cmd === "cat") {
-        if (/focus/.test(arg)) { print('<span class="c-ok">opening ~/focus.md</span>'); scrollToId("about"); return; }
-        if (/tools/.test(arg)) { print('<span class="c-ok">opening tools.txt</span>'); scrollToId("stack"); return; }
+        if (/focus/.test(arg))   { print('<span class="c-ok">opening ~/focus.md</span>');   scrollToId("about");   return; }
+        if (/tools/.test(arg))   { print('<span class="c-ok">opening tools.txt</span>');    scrollToId("stack");   return; }
+        if (/roadmap/.test(arg)) { print('<span class="c-ok">opening ~/goals/roadmap.md</span>'); scrollToId("roadmap"); return; }
         print('<span class="c-err">cat: ' + escapeHtml(arg || "") + ": No such file</span>");
         return;
       }
