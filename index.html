@@ -4,8 +4,23 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="theme-color" content="#000000"/>
+<meta name="color-scheme" content="dark"/>
 <title>mohammed al-badiah // cloud &amp; devops eng</title>
 <meta name="description" content="Mohammed Al-badiah — Cloud & DevOps Engineer. Linux, AWS, automation, infrastructure."/>
+<meta name="author" content="Mohammed Al-badiah"/>
+<link rel="canonical" href="https://mhammdalbadiah.github.io/"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="mohammed al-badiah // cloud &amp; devops eng"/>
+<meta property="og:description" content="Mohammed Al-badiah — Cloud & DevOps Engineer. Linux, AWS, automation, infrastructure."/>
+<meta property="og:url" content="https://mhammdalbadiah.github.io/"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@cloud_dev_ops"/>
+<meta name="twitter:title" content="mohammed al-badiah // cloud &amp; devops eng"/>
+<meta name="twitter:description" content="Mohammed Al-badiah — Cloud & DevOps Engineer. Linux, AWS, automation, infrastructure."/>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080808'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='20' font-weight='700' fill='%23a6e3a1' text-anchor='middle'%3E_%3C/text%3E%3C/svg%3E"/>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -15,50 +30,58 @@
   --text:#cdd6f4;--sub1:#bac2de;--sub0:#a6adc8;--ov1:#7f849c;--ov0:#6c7086;
   --green:#a6e3a1;--blue:#89b4fa;--mauve:#cba6f7;--peach:#fab387;
   --sky:#89dceb;--pink:#f5c2e7;--red:#f38ba8;--yellow:#f9e2af;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --bar:52px;--safe:env(safe-area-inset-bottom,0px);--r:5px;
+  --ease:cubic-bezier(.22,.61,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:#000;}
 body{
   background:#000;color:var(--text);font-family:var(--mono);
   font-size:14px;line-height:1.75;letter-spacing:.01em;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;
-  min-height:100vh;padding-bottom:calc(var(--bar) + var(--safe) + 20px);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  min-height:100svh;padding-bottom:calc(var(--bar) + var(--safe) + 20px);
+  overscroll-behavior-y:none;
 }
 ::selection{background:var(--mauve);color:#000;}
 a{color:inherit;text-decoration:none;}
-::-webkit-scrollbar{width:4px;}
+img{max-width:100%;}
+button,input{font:inherit;color:inherit;}
+:focus{outline:none;}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:2px;}
+::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:#000;}
 ::-webkit-scrollbar-thumb{background:var(--s2);border-radius:2px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--green);}
+*{scrollbar-width:thin;scrollbar-color:var(--s2) #000;}
 
 /* atmosphere */
-.crt-lines{position:fixed;inset:0;pointer-events:none;z-index:9001;
+.crt-lines{position:fixed;inset:0;pointer-events:none;z-index:9001;contain:strict;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0px,rgba(0,0,0,.4) 1px,transparent 1px,transparent 3px);
   opacity:.2;animation:flicker 9s steps(1) infinite;}
 @keyframes flicker{0%,91%,100%{opacity:.2}92%{opacity:.1}93%{opacity:.25}94%{opacity:.15}95%{opacity:.22}}
-.crt-vignette{position:fixed;inset:0;pointer-events:none;z-index:9002;
+.crt-vignette{position:fixed;inset:0;pointer-events:none;z-index:9002;contain:strict;
   background:radial-gradient(ellipse at 50% 50%,transparent 36%,rgba(0,0,0,.85) 100%);}
-.crt-sweep{position:fixed;inset:0;pointer-events:none;z-index:9000;
-  background:linear-gradient(180deg,transparent 0%,rgba(166,227,161,.009) 49%,rgba(137,220,235,.006) 51%,transparent 100%) 0 -200px/100% 200px no-repeat;
-  animation:sweep 16s linear infinite;}
-@keyframes sweep{to{background-position:0 100vh;}}
-.noise{position:fixed;inset:0;pointer-events:none;z-index:9003;opacity:.028;filter:url(#grain);background:#fff;}
-#rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;transition:opacity .6s;}
+.crt-sweep{position:fixed;left:0;right:0;top:0;height:200px;pointer-events:none;z-index:9000;
+  background:linear-gradient(180deg,transparent 0%,rgba(166,227,161,.022) 48%,rgba(137,220,235,.016) 52%,transparent 100%);
+  animation:sweep 16s linear infinite;will-change:transform;}
+@keyframes sweep{from{transform:translate3d(0,-200px,0);}to{transform:translate3d(0,100vh,0);}}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9003;opacity:.028;filter:url(#grain);background:#fff;contain:strict;}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;transition:opacity .6s ease;}
 #rain.bright{opacity:.15;}
-#progress{position:fixed;top:0;left:0;width:0;height:2px;z-index:9500;
+#progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:9500;transform-origin:0 50%;
+  transform:scaleX(0);will-change:transform;
   background:linear-gradient(90deg,var(--green),var(--blue),var(--mauve));
-  box-shadow:0 0 14px rgba(137,180,250,.9);transition:width .08s linear;}
-#phosphor{position:fixed;inset:0;pointer-events:none;z-index:9100;opacity:0;
-  background:linear-gradient(180deg,transparent 0%,rgba(166,227,161,.08) 49%,rgba(137,220,235,.05) 51%,transparent 100%) 0 -80%/100% 60% no-repeat;}
+  box-shadow:0 0 14px rgba(137,180,250,.9);}
+#phosphor{position:fixed;left:0;right:0;top:0;height:60vh;pointer-events:none;z-index:9100;opacity:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(166,227,161,.08) 48%,rgba(137,220,235,.05) 52%,transparent 100%);}
 #phosphor.run{animation:pho 2s ease-out 1 forwards;}
-@keyframes pho{0%{opacity:1;background-position:0 -80%;}100%{opacity:0;background-position:0 180%;}}
+@keyframes pho{0%{opacity:1;transform:translate3d(0,-60vh,0);}100%{opacity:0;transform:translate3d(0,160vh,0);}}
 
 /* boot */
 #boot{position:fixed;inset:0;z-index:10000;background:#000;
   font-family:var(--mono);font-size:clamp(11px,2.8vw,13px);line-height:1.95;
-  padding:clamp(20px,5vw,48px) clamp(16px,4vw,32px);overflow:hidden;
+  padding:clamp(20px,5vw,48px) clamp(16px,4vw,32px);overflow:hidden;cursor:pointer;
   transition:opacity .6s ease,transform .6s ease;}
 #boot::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0px,rgba(0,0,0,.4) 1px,transparent 1px,transparent 3px);
@@ -72,7 +95,7 @@ a{color:inherit;text-decoration:none;}
 #boot.done{opacity:0;transform:scale(1.004);pointer-events:none;}
 
 /* topbar */
-#topbar{display:flex;align-items:center;justify-content:space-between;
+#topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:10px 16px;background:var(--mantle);
   border:1px solid var(--s0);border-radius:var(--r) var(--r) 0 0;border-bottom:none;
   position:relative;flex-shrink:0;}
@@ -88,7 +111,8 @@ a{color:inherit;text-decoration:none;}
 .dot.r{background:var(--red);box-shadow:0 0 4px rgba(243,139,168,.5);}
 .dot.y{background:var(--yellow);box-shadow:0 0 4px rgba(249,226,175,.5);}
 .dot.g{background:var(--green);box-shadow:0 0 4px rgba(166,227,161,.5);}
-.tbtitle{font-size:11px;color:var(--ov0);letter-spacing:.5px;flex:1;text-align:center;}
+.tbtitle{font-size:11px;color:var(--ov0);letter-spacing:.5px;flex:1;text-align:center;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .tbright{display:flex;align-items:center;gap:10px;font-size:11px;}
 .tbclock{color:var(--ov0);font-variant-numeric:tabular-nums;letter-spacing:.5px;}
 .tbbranch{color:var(--mauve);font-size:10px;border:1px solid var(--s1);padding:1px 6px;border-radius:2px;letter-spacing:.3px;}
@@ -98,9 +122,10 @@ a{color:inherit;text-decoration:none;}
 
 /* hamburger */
 #navbtn{display:none;background:none;border:none;cursor:pointer;
-  padding:7px 5px;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;}
+  padding:7px 5px;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;}
 #navbtn span{display:block;width:20px;height:1.5px;background:var(--green);border-radius:1px;
-  transition:transform .28s cubic-bezier(.22,.61,.36,1),opacity .2s;
+  transition:transform .28s var(--ease),opacity .2s;
   box-shadow:0 0 4px rgba(166,227,161,.5);}
 #navbtn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 #navbtn.open span:nth-child(2){opacity:0;transform:scaleX(0);}
@@ -111,7 +136,7 @@ a{color:inherit;text-decoration:none;}
   background:rgba(2,2,2,.95);
   border:1px solid var(--s0);border-top:none;border-bottom:none;
   position:sticky;top:0;z-index:500;
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);}
+  backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);}
 #deskNav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,transparent,rgba(166,227,161,.22),transparent);}
 #deskNav a{color:var(--blue);font-size:13px;padding:4px 10px;border-radius:2px;
@@ -127,8 +152,10 @@ a{color:inherit;text-decoration:none;}
 /* mobile nav overlay */
 #mobNav{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.97);
   display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
-  transform:translateX(-100%);transition:transform .35s cubic-bezier(.22,.61,.36,1);overflow:hidden;}
-#mobNav.open{transform:translateX(0);}
+  transform:translateX(-100%);transition:transform .35s var(--ease),visibility .35s;
+  overflow:hidden;visibility:hidden;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+#mobNav.open{transform:translateX(0);visibility:visible;}
 #mobNav::before{content:'';position:absolute;inset:0;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0px,rgba(0,0,0,.35) 1px,transparent 1px,transparent 3px);
   opacity:.18;pointer-events:none;}
@@ -138,22 +165,25 @@ a{color:inherit;text-decoration:none;}
 .mnlinks a{display:flex;align-items:center;gap:12px;
   color:var(--sub0);font-size:clamp(19px,5.5vw,26px);font-weight:700;
   padding:14px 18px;border-radius:4px;border:1px solid transparent;
-  transition:color .2s,border-color .2s,background .2s,text-shadow .2s;min-height:58px;}
+  transition:color .2s,border-color .2s,background .2s,text-shadow .2s;min-height:58px;
+  -webkit-tap-highlight-color:transparent;}
 .mnlinks a .idx{color:var(--ov0);font-size:.6em;font-weight:400;min-width:2ch;}
 .mnlinks a .sym{color:var(--green);font-size:.75em;}
-.mnlinks a:hover,.mnlinks a:active{color:var(--green);border-color:var(--s1);
+.mnlinks a:hover,.mnlinks a:active,.mnlinks a:focus-visible{color:var(--green);border-color:var(--s1);
   background:rgba(166,227,161,.05);text-shadow:0 0 20px rgba(166,227,161,.35);}
 .mnclose{position:absolute;top:18px;right:18px;z-index:2;
   background:none;border:1px solid var(--s1);color:var(--ov0);
   font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:2px;cursor:pointer;
   transition:color .2s,border-color .2s;}
 .mnclose:hover{color:var(--red);border-color:var(--red);}
-.mnfoot{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-size:11px;color:var(--ov0);z-index:1;}
+.mnfoot{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-size:11px;color:var(--ov0);z-index:1;padding:0 16px;}
 
 /* wrap + window */
 .wrap{max-width:880px;margin:0 auto;padding:18px 14px 0;position:relative;z-index:2;}
-.twin{border:1px solid var(--s0);border-radius:var(--r);overflow:hidden;}
+.twin{border:1px solid var(--s0);border-radius:var(--r);
+  box-shadow:0 0 0 1px rgba(0,0,0,.6),0 18px 60px rgba(0,0,0,.55);}
 .tbody{background:var(--mantle);border-top:none;
+  border-radius:0 0 var(--r) var(--r);
   padding:clamp(22px,5vw,44px) clamp(14px,4vw,36px) clamp(28px,6vw,54px);position:relative;}
 .tbody::before{content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(166,227,161,.01) 0%,transparent 22%);
@@ -171,26 +201,20 @@ a{color:inherit;text-decoration:none;}
 
 /* hero */
 .hero{margin-bottom:34px;}
+#hcmd{min-height:1em;}
 
-/* DEVOPS logo */
-.devops-wrap{margin:18px 0 22px;opacity:0;transform:translateY(6px);
-  transition:opacity .6s ease,transform .6s ease;}
-.devops-wrap.in{opacity:1;transform:none;}
-.devops-img{width:100%;max-width:580px;height:auto;display:block;
-  filter:drop-shadow(0 0 16px rgba(166,227,161,.45)) drop-shadow(0 0 38px rgba(166,227,161,.14));
-  animation:logopulse 4s ease-in-out infinite;}
-@keyframes logopulse{0%,100%{filter:drop-shadow(0 0 14px rgba(166,227,161,.35)) drop-shadow(0 0 28px rgba(166,227,161,.1));}
-  50%{filter:drop-shadow(0 0 28px rgba(166,227,161,.6)) drop-shadow(0 0 58px rgba(166,227,161,.18));}}
-.devops-img.glitch{animation:logoglitch .1s steps(1) 3;}
-@keyframes logoglitch{
-  0%{filter:drop-shadow(0 0 14px rgba(166,227,161,.35));transform:translateX(0);}
-  33%{filter:drop-shadow(-4px 0 10px rgba(245,194,231,.8)) drop-shadow(4px 0 10px rgba(137,220,235,.8)) brightness(1.4);transform:translateX(-3px);}
-  66%{filter:drop-shadow(3px 0 10px rgba(203,166,247,.8)) brightness(1.2);transform:translateX(2px);}
-  100%{filter:drop-shadow(0 0 14px rgba(166,227,161,.35));transform:translateX(0);}
+/* screen glitch — used by the `hack` command */
+.twin.glitch{animation:screenglitch .18s steps(2) 1;}
+@keyframes screenglitch{
+  0%{transform:translate3d(0,0,0);filter:none;}
+  30%{transform:translate3d(-3px,1px,0);
+      filter:drop-shadow(-3px 0 0 rgba(245,194,231,.55)) drop-shadow(3px 0 0 rgba(137,220,235,.55));}
+  60%{transform:translate3d(2px,-1px,0);filter:drop-shadow(2px 0 0 rgba(203,166,247,.5)) brightness(1.12);}
+  100%{transform:translate3d(0,0,0);filter:none;}
 }
 
 /* id card */
-.idcard{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin:18px 0;
+.idcard{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;margin:22px 0 18px;
   padding:14px 18px;background:rgba(255,255,255,.013);
   border:1px solid var(--s0);border-left:3px solid var(--green);
   font-size:clamp(12px,3.2vw,14px);position:relative;overflow:hidden;
@@ -206,22 +230,22 @@ a{color:inherit;text-decoration:none;}
 .tagline:hover{border-color:var(--green);background:rgba(166,227,161,.02);}
 .tagline .hl{color:var(--text);font-weight:500;}
 .hp{opacity:0;transform:translateY(10px);}
-.hp.in{animation:piecein .55s cubic-bezier(.22,.61,.36,1) forwards;}
+.hp.in{animation:piecein .55s var(--ease) forwards;}
 @keyframes piecein{to{opacity:1;transform:none;}}
 
 /* sections */
 section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
 .reveal{opacity:0;transform:translateY(28px);
-  transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
   will-change:opacity,transform;}
-.reveal.shown{opacity:1;transform:none;}
+.reveal.shown{opacity:1;transform:none;will-change:auto;}
 
 /* section head */
 .sh{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:10px;
-  border-bottom:1px solid var(--s0);position:relative;}
+  border-bottom:1px solid var(--s0);position:relative;flex-wrap:wrap;}
 .sh::before{content:"──";color:var(--ov0);letter-spacing:-1px;}
 .sh::after{content:'';position:absolute;bottom:-1px;left:0;width:0;height:1px;
-  background:linear-gradient(90deg,var(--green),var(--blue));transition:width .9s cubic-bezier(.22,.61,.36,1);}
+  background:linear-gradient(90deg,var(--green),var(--blue));transition:width .9s var(--ease);}
 .reveal.shown .sh::after{width:100%;}
 .sh .hash{color:var(--mauve);font-weight:700;}
 .sh h2{font-size:clamp(14px,4vw,17px);font-weight:700;color:var(--text);letter-spacing:.5px;}
@@ -235,15 +259,15 @@ section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
   transition:border-color .22s,background .22s,box-shadow .22s,transform .22s;}
 .card::before{content:'';position:absolute;left:-1px;top:-1px;bottom:-1px;width:3px;
   background:var(--green);box-shadow:0 0 12px rgba(166,227,161,.6);
-  transform:scaleY(0);transition:transform .3s cubic-bezier(.22,.61,.36,1);transform-origin:top;}
+  transform:scaleY(0);transition:transform .3s var(--ease);transform-origin:top;}
 .card::after{content:'';position:absolute;inset:0;
   background:linear-gradient(135deg,rgba(166,227,161,.022) 0%,transparent 55%);
   opacity:0;transition:opacity .3s;pointer-events:none;}
-.card:hover{border-color:var(--s1);background:rgba(166,227,161,.022);
+.card:hover,.card:focus-within{border-color:var(--s1);background:rgba(166,227,161,.022);
   box-shadow:0 0 28px rgba(166,227,161,.07),inset 0 0 20px rgba(166,227,161,.015);
   transform:translateX(2px);}
-.card:hover::before{transform:scaleY(1);}
-.card:hover::after{opacity:1;}
+.card:hover::before,.card:focus-within::before{transform:scaleY(1);}
+.card:hover::after,.card:focus-within::after{opacity:1;}
 .reveal .card{opacity:0;transform:translateY(14px);
   transition:opacity .5s ease,transform .5s ease,border-color .22s,background .22s,box-shadow .22s;}
 .reveal.shown .card{opacity:1;transform:none;}
@@ -255,15 +279,17 @@ section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
 .reveal.shown .card:nth-child(6){transition-delay:.46s;}
 .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
 .ctitle{color:var(--text);font-weight:700;font-size:clamp(13px,3.5vw,15px);transition:color .2s,text-shadow .2s;}
-.card:hover .ctitle{color:var(--green);text-shadow:0 0 16px rgba(166,227,161,.36);}
+.card:hover .ctitle,.card:focus-within .ctitle{color:var(--green);text-shadow:0 0 16px rgba(166,227,161,.36);}
 .ctitle .arr{color:var(--green);margin-right:5px;}
 .cmeta{color:var(--ov0);font-size:11px;white-space:nowrap;border:1px solid var(--s0);padding:1px 7px;flex-shrink:0;}
 .cdesc{color:var(--sub0);font-size:clamp(12px,3.2vw,13.5px);line-height:1.78;margin:7px 0 10px;}
+.cdesc code{font-family:var(--mono);font-size:.95em;background:rgba(166,227,161,.06);
+  border:1px solid var(--s0);border-radius:2px;padding:0 4px;}
 
 /* tags */
 .tags{display:flex;flex-wrap:wrap;gap:4px 8px;margin-top:10px;}
 .tag{font-size:clamp(10px,2.8vw,12px);cursor:default;opacity:0;transform:translateY(4px);
-  transition:opacity .3s,transform .3s,filter .18s,text-shadow .18s;}
+  transition:opacity .3s,transform .3s,filter .18s,text-shadow .18s;white-space:nowrap;}
 .reveal.shown .tag{opacity:1;transform:none;}
 .reveal.shown .tags .tag:nth-child(1){transition-delay:.08s;}
 .reveal.shown .tags .tag:nth-child(2){transition-delay:.13s;}
@@ -284,19 +310,19 @@ section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
 .clinks{display:flex;gap:12px;margin-top:10px;font-size:12px;flex-wrap:wrap;}
 .clinks a{color:var(--blue);border-bottom:1px solid transparent;
   transition:color .18s,text-shadow .18s,border-color .18s;padding:1px 0;}
-.clinks a:hover{color:var(--pink);text-shadow:0 0 10px rgba(245,194,231,.5);border-bottom-color:rgba(245,194,231,.3);}
+.clinks a:hover,.clinks a:focus-visible{color:var(--pink);text-shadow:0 0 10px rgba(245,194,231,.5);border-bottom-color:rgba(245,194,231,.3);}
 .clinks a:hover::before{content:"> ";}
 .clinks .dis{color:var(--ov0);}
 
 /* languages */
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,46%),1fr));gap:9px;padding-left:clamp(0px,2vw,12px);}
 .lang{background:rgba(0,0,0,.5);border:1px solid var(--s0);padding:11px 13px;
-  font-size:clamp(12px,3vw,13px);display:flex;justify-content:space-between;align-items:center;
+  font-size:clamp(12px,3vw,13px);display:flex;justify-content:space-between;align-items:center;gap:10px;
   transition:border-color .22s,background .22s,box-shadow .22s;border-radius:2px;min-height:44px;}
 .lang:hover{border-color:var(--green);background:rgba(166,227,161,.035);box-shadow:0 0 14px rgba(166,227,161,.08);}
 .lname{color:var(--text);font-weight:500;}
 .lname::before{content:"$ ";color:var(--green);}
-.lbar{display:flex;gap:3px;}
+.lbar{display:flex;gap:3px;flex-shrink:0;}
 .lbar i{width:9px;height:9px;border-radius:50%;background:var(--s0);transition:background .35s,box-shadow .35s;}
 .shown .lbar i.fill{background:var(--green);box-shadow:0 0 5px rgba(166,227,161,.55);}
 .lbar i:nth-child(1){transition-delay:.05s;}
@@ -318,9 +344,9 @@ section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
 .rmtodo{color:var(--ov0);}
 .rmdone{color:var(--green);}
 .rmnote{color:var(--peach);font-size:11px;margin-left:6px;}
-.rmname{color:var(--text);}
+.rmname{color:var(--text);transition:color .2s,text-shadow .2s;}
 .rml.dim .rmname{color:var(--sub0);}
-.rml:not(.dim):hover .rmname{color:var(--green);text-shadow:0 0 10px rgba(166,227,161,.3);transition:color .2s,text-shadow .2s;}
+.rml:not(.dim):hover .rmname{color:var(--green);text-shadow:0 0 10px rgba(166,227,161,.3);}
 
 /* contact */
 .ctblock{background:rgba(0,0,0,.5);border:1px solid var(--s0);
@@ -333,8 +359,9 @@ section{margin-top:clamp(46px,8vw,70px);scroll-margin-top:72px;}
 .cline:hover{background:rgba(255,255,255,.012);padding-left:6px;padding-right:6px;}
 .cline:last-child{border-bottom:none;}
 .ck{color:var(--ov0);font-size:clamp(10px,2.8vw,12px);}
+.cv{overflow-wrap:anywhere;}
 .cv a{color:var(--blue);transition:color .15s,text-shadow .15s;}
-.cv a:hover{color:var(--pink);text-shadow:0 0 10px rgba(245,194,231,.5);}
+.cv a:hover,.cv a:focus-visible{color:var(--pink);text-shadow:0 0 10px rgba(245,194,231,.5);}
 .cv a:hover::before{content:"> ";}
 
 /* footer */
@@ -354,9 +381,9 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
   padding-bottom:var(--safe);}
 #con.focused{border-top-color:var(--green);box-shadow:0 -6px 30px rgba(166,227,161,.09);}
 .cnr{max-width:880px;margin:0 auto;padding:0 clamp(10px,3vw,18px);}
-#conout{max-height:0;overflow-y:auto;overflow-x:hidden;
+#conout{max-height:0;overflow-y:auto;overflow-x:auto;overscroll-behavior:contain;
   font-size:clamp(11.5px,3vw,13px);line-height:1.7;color:var(--sub0);
-  transition:max-height .3s,padding .3s;padding:0;}
+  transition:max-height .3s var(--ease),padding .3s;padding:0;}
 #conout.open{max-height:32vh;padding:10px 0 6px;border-bottom:1px solid var(--s0);}
 #conout .o{white-space:pre-wrap;word-break:break-word;padding-left:8px;}
 #conout .cu{color:var(--green);font-weight:700;}#conout .ch{color:var(--blue);font-weight:700;}
@@ -394,7 +421,6 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
 }
 @media(max-width:480px){
   #boot{padding:18px 14px;}
-  .devops-img{max-width:100%;}
 }
 @media(min-width:768px){
   #deskNav{display:flex;}
@@ -404,20 +430,45 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
   .ctblock,.rmblock{margin-left:12px;}
   section{scroll-margin-top:80px;}
 }
+@media(hover:none){
+  .card:hover{transform:none;}
+  .cline:hover{padding-left:0;padding-right:0;}
+}
 @media(prefers-reduced-motion:reduce){
   .pcur,footer .ecur::after,#boot .bcur::after,.tbping{animation:none!important;}
   .reveal,.reveal .card{opacity:1;transform:none;transition:none;}
   .hp{opacity:1;transform:none;}
-  .devops-wrap{opacity:1;transform:none;}
   #phosphor,#phosphor.run{animation:none!important;opacity:0!important;}
   .shown .lbar i.fill{transition:none;}
   .crt-lines,.crt-sweep,.noise{display:none;}
   .reveal .tag{opacity:1;transform:none;}
-  .devops-img{animation:none;}
+  .twin.glitch{animation:none!important;}
   #rain{display:none;}
   html{scroll-behavior:auto;}
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;}
+}
+@media print{
+  .crt-lines,.crt-vignette,.crt-sweep,.noise,#rain,#progress,#phosphor,
+  #boot,#con,#mobNav,#deskNav,#topbar,.pcur{display:none!important;}
+  body{background:#fff;color:#111;padding:0;}
+  .wrap{max-width:none;padding:0;}
+  .twin{border:none;box-shadow:none;}
+  .tbody{background:#fff;padding:0;}
+  .reveal,.hp,.reveal .card,.reveal .tag{opacity:1!important;transform:none!important;}
+  .card,.lang,.rmblock,.ctblock,.idcard{background:#fff;border-color:#ccc;box-shadow:none;}
+  .ctitle,.idv,.lname,.rmname,.sh h2{color:#111;}
+  .cdesc,.tagline,.ck,.idk,footer{color:#444;}
+  a{color:#111;text-decoration:underline;}
+  section{page-break-inside:avoid;}
 }
 </style>
+<noscript><style>
+  #boot,#con{display:none!important;}
+  body{padding-bottom:24px;}
+  .hp,.reveal,.reveal .card,.reveal .tag{opacity:1!important;transform:none!important;}
+  .lbar i.fill{background:var(--green)!important;box-shadow:0 0 5px rgba(166,227,161,.55)!important;}
+  .sh::after{width:100%!important;}
+</style></noscript>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true">
@@ -455,7 +506,7 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
   <div class="bl bcur dim">Last login: tty1 &#8212; booting session</div>
 </div>
 
-<div id="mobNav" role="dialog" aria-label="Navigation" aria-hidden="true">
+<div id="mobNav" role="dialog" aria-modal="true" aria-label="Navigation" aria-hidden="true">
   <button class="mnclose" id="mnclose" aria-label="Close menu">[ esc ]</button>
   <nav class="mnlinks" aria-label="Site navigation">
     <a href="#about"    data-mn><span class="idx">01</span><span class="sym">~/</span>about</a>
@@ -496,17 +547,12 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
       <a href="#contact">contact</a>
     </nav>
 
-    <main class="tbody">
+    <main class="tbody" id="main">
 
-      <section class="hero" id="about">
+      <section class="hero" id="about" aria-label="about">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~</span><span class="parr">$</span>
           <span class="pcmd" id="hcmd"></span><span class="pcur" id="hcur"></span>
-        </div>
-
-        <div class="devops-wrap" id="dwrap">
-          <img src="ascii-art-text.png" alt="DEVOPS" class="devops-img" id="dlogo"
-               width="800" height="200" loading="eager"/>
         </div>
 
         <div class="idcard hp">
@@ -538,7 +584,7 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
         </div>
       </section>
 
-      <section id="certs" class="reveal">
+      <section id="certs" class="reveal" aria-label="certifications">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~/certs</span><span class="parr">$</span>
           <span class="pcmd">ls</span> <span class="parg">-la</span><span class="pcur"></span>
@@ -549,30 +595,30 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>AWS Cloud Technical Essentials</div><div class="cmeta">May 2026</div></div>
             <div class="cdesc">Amazon Web Services &middot; Coursera. Core AWS services: compute, networking, storage, databases, monitoring, security.</div>
             <div class="tags"><span class="tag hl">AWS</span><span class="tag hl">Cloud</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">VPC</span><span class="tag">IAM</span></div>
-            <div class="clinks"><a href="https://coursera.org/verify/6543TYIV34EJ" target="_blank" rel="noopener">verify &#8599;</a></div>
+            <div class="clinks"><a href="https://coursera.org/verify/6543TYIV34EJ" target="_blank" rel="noopener noreferrer">verify &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>Relational Database Administration (DBA)</div><div class="cmeta">May 2026</div></div>
             <div class="cdesc">IBM &middot; Coursera. PostgreSQL and MySQL administration, backup &amp; recovery, performance tuning, indexing, security.</div>
             <div class="tags"><span class="tag hl">PostgreSQL</span><span class="tag hl">MySQL</span><span class="tag">DBA</span><span class="tag">Backup &amp; Recovery</span><span class="tag">Indexing</span><span class="tag">IBM</span></div>
-            <div class="clinks"><a href="https://coursera.org/verify/DK6S6V4AV6JZ" target="_blank" rel="noopener">verify &#8599;</a></div>
+            <div class="clinks"><a href="https://coursera.org/verify/DK6S6V4AV6JZ" target="_blank" rel="noopener noreferrer">verify &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>Object-Oriented Data Structures in C++</div><div class="cmeta">Nov 2025</div></div>
             <div class="cdesc">UIUC &middot; Coursera. OOP design and C++ data structures, taught by Wade Fagen-Ulmschneider.</div>
             <div class="tags"><span class="tag hl">C++</span><span class="tag">OOP</span><span class="tag">Data Structures</span><span class="tag">UIUC</span></div>
-            <div class="clinks"><a href="https://coursera.org/verify/7US5T3TR0IWB" target="_blank" rel="noopener">verify &#8599;</a></div>
+            <div class="clinks"><a href="https://coursera.org/verify/7US5T3TR0IWB" target="_blank" rel="noopener noreferrer">verify &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>Introduction to Structured Query Language (SQL)</div><div class="cmeta">Nov 2025</div></div>
             <div class="cdesc">University of Michigan &middot; Coursera. SQL foundations, relational modeling, query design &mdash; Charles Severance.</div>
             <div class="tags"><span class="tag hl">SQL</span><span class="tag">Databases</span><span class="tag">U-M</span></div>
-            <div class="clinks"><a href="https://coursera.org/verify/1LM068I1FOE2" target="_blank" rel="noopener">verify &#8599;</a></div>
+            <div class="clinks"><a href="https://coursera.org/verify/1LM068I1FOE2" target="_blank" rel="noopener noreferrer">verify &#8599;</a></div>
           </div>
         </div>
       </section>
 
-      <section id="projects" class="reveal">
+      <section id="projects" class="reveal" aria-label="projects">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~/projects</span><span class="parr">$</span>
           <span class="pcmd">tree</span> <span class="parg">-L 1</span><span class="pcur"></span>
@@ -589,50 +635,50 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>snap &mdash; backup tool</div><div class="cmeta">2026</div></div>
             <div class="cdesc">Go backup tool with file deduplication and snapshot support. Content-addressable storage for efficient incremental backups.</div>
             <div class="tags"><span class="tag hl">Go</span><span class="tag">CLI</span><span class="tag">Backup</span><span class="tag">Deduplication</span></div>
-            <div class="clinks"><a href="https://github.com/mhammdalbadiah/snap" target="_blank" rel="noopener">source &#8599;</a></div>
+            <div class="clinks"><a href="https://github.com/mhammdalbadiah/snap" target="_blank" rel="noopener noreferrer">source &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>AirlineSystem</div><div class="cmeta">team lead &middot; 2026</div></div>
             <div class="cdesc">C++ airline management console app. Custom Linked Lists, Stacks, Queues (no STL). Led 5-person university team; built core entry point, build system, UI, and bug fixes.</div>
             <div class="tags"><span class="tag hl">C++</span><span class="tag">Data Structures</span><span class="tag">Make</span><span class="tag">OOP</span></div>
-            <div class="clinks"><a href="https://github.com/mhammdalbadiah/AirlineSystem" target="_blank" rel="noopener">source &#8599;</a></div>
+            <div class="clinks"><a href="https://github.com/mhammdalbadiah/AirlineSystem" target="_blank" rel="noopener noreferrer">source &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>g &mdash; git task runner</div><div class="cmeta">2026</div></div>
             <div class="cdesc">Lightweight Go CLI wrapping Git workflows into short commands (<code style="color:var(--green)">g build</code>, <code style="color:var(--green)">g push</code>). Reduces friction, standardizes daily git ops.</div>
             <div class="tags"><span class="tag hl">Go</span><span class="tag">CLI</span><span class="tag">Git</span><span class="tag">Automation</span></div>
-            <div class="clinks"><a href="https://github.com/mhammdalbadiah/G" target="_blank" rel="noopener">source &#8599;</a></div>
+            <div class="clinks"><a href="https://github.com/mhammdalbadiah/G" target="_blank" rel="noopener noreferrer">source &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>media-club-mu</div><div class="cmeta">2026</div></div>
             <div class="cdesc">Frontend website for the Media Club at Majmaah University &mdash; events, news, and member information.</div>
             <div class="tags"><span class="tag hl">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Web</span></div>
-            <div class="clinks"><a href="https://github.com/mhammdalbadiah/media-club-mu" target="_blank" rel="noopener">source &#8599;</a></div>
+            <div class="clinks"><a href="https://github.com/mhammdalbadiah/media-club-mu" target="_blank" rel="noopener noreferrer">source &#8599;</a></div>
           </div>
           <div class="card">
             <div class="chead"><div class="ctitle"><span class="arr">&rarr;</span>cloud-labs</div><div class="cmeta">ongoing</div></div>
             <div class="cdesc">Personal lab notes covering Linux admin, networking, Bash scripting, Raspberry Pi, and cloud systems. Living documentation.</div>
             <div class="tags"><span class="tag hl">Linux</span><span class="tag">Bash</span><span class="tag">Networking</span><span class="tag">AWS</span><span class="tag">Documentation</span></div>
-            <div class="clinks"><a href="https://github.com/mhammdalbadiah/cloud-labs" target="_blank" rel="noopener">source &#8599;</a></div>
+            <div class="clinks"><a href="https://github.com/mhammdalbadiah/cloud-labs" target="_blank" rel="noopener noreferrer">source &#8599;</a></div>
           </div>
         </div>
       </section>
 
-      <section id="stack" class="reveal">
+      <section id="stack" class="reveal" aria-label="stack and languages">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~</span><span class="parr">$</span>
           <span class="pcmd">which</span> <span class="parg">--all</span><span class="pcur"></span>
         </div>
         <div class="sh"><span class="hash">##</span><h2>stack &amp; languages</h2><span class="meta">8 langs</span></div>
         <div class="lgrid">
-          <div class="lang"><span class="lname">C++</span><span class="lbar" aria-label="5/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i></span></div>
-          <div class="lang"><span class="lname">Go</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-          <div class="lang"><span class="lname">Python</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-          <div class="lang"><span class="lname">Bash</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-          <div class="lang"><span class="lname">SQL</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-          <div class="lang"><span class="lname">JavaScript</span><span class="lbar" aria-label="3/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i><i></i></span></div>
-          <div class="lang"><span class="lname">HTML</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
-          <div class="lang"><span class="lname">CSS</span><span class="lbar" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">C++</span><span class="lbar" role="img" aria-label="5/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i></span></div>
+          <div class="lang"><span class="lname">Go</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">Python</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">Bash</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">SQL</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">JavaScript</span><span class="lbar" role="img" aria-label="3/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i><i></i></span></div>
+          <div class="lang"><span class="lname">HTML</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
+          <div class="lang"><span class="lname">CSS</span><span class="lbar" role="img" aria-label="4/5"><i class="fill"></i><i class="fill"></i><i class="fill"></i><i class="fill"></i><i></i></span></div>
         </div>
         <div style="margin-top:20px;">
           <div class="pr" style="margin-bottom:10px;">
@@ -650,7 +696,7 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
         </div>
       </section>
 
-      <section id="roadmap" class="reveal">
+      <section id="roadmap" class="reveal" aria-label="roadmap">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~/goals</span><span class="parr">$</span>
           <span class="pcmd">cat</span> <span class="parg">roadmap.md</span><span class="pcur"></span>
@@ -665,7 +711,7 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
         </div>
       </section>
 
-      <section id="contact" class="reveal">
+      <section id="contact" class="reveal" aria-label="connect">
         <div class="pr">
           <span class="pu">mohammed</span><span class="pa">@</span><span class="ph">arch</span><span class="pc">:</span><span class="pp">~</span><span class="parr">$</span>
           <span class="pcmd">./connect.sh</span><span class="pcur"></span>
@@ -673,9 +719,10 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
         <div class="sh"><span class="hash">##</span><h2>connect</h2><span class="meta">always open</span></div>
         <div class="ctblock">
           <div class="cline"><span class="ck">email</span><span class="cv"><a href="mailto:m.a.albadiah@gmail.com">m.a.albadiah@gmail.com</a></span></div>
-          <div class="cline"><span class="ck">github</span><span class="cv"><a href="https://github.com/mhammdalbadiah" target="_blank" rel="noopener">github.com/mhammdalbadiah &#8599;</a></span></div>
-          <div class="cline"><span class="ck">linkedin</span><span class="cv"><a href="https://www.linkedin.com/in/mohammed-al-badiah-7b4294321" target="_blank" rel="noopener">linkedin.com/in/mohammed-al-badiah &#8599;</a></span></div>
-          <div class="cline"><span class="ck">x / twitter</span><span class="cv"><a href="https://x.com/cloud_dev_ops" target="_blank" rel="noopener">@cloud_dev_ops &#8599;</a></span></div>
+          <div class="cline"><span class="ck">github</span><span class="cv"><a href="https://github.com/mhammdalbadiah" target="_blank" rel="noopener noreferrer">github.com/mhammdalbadiah &#8599;</a></span></div>
+          <div class="cline"><span class="ck">linkedin</span><span class="cv"><a href="https://www.linkedin.com/in/mohammed-al-badiah-7b4294321" target="_blank" rel="noopener noreferrer">linkedin.com/in/mohammed-al-badiah &#8599;</a></span></div>
+          <div class="cline"><span class="ck">x / twitter</span><span class="cv"><a href="https://x.com/cloud_dev_ops" target="_blank" rel="noopener noreferrer">@cloud_dev_ops &#8599;</a></span></div>
+          <div class="cline"><span class="ck">youtube</span><span class="cv"><a href="https://www.youtube.com/@itsts_11" target="_blank" rel="noopener noreferrer">youtube.com/@itsts_11 &#8599;</a></span></div>
           <div class="cline"><span class="ck">location</span><span class="cv" style="color:var(--sub0)">Riyadh, Saudi Arabia &middot; UTC+3</span></div>
         </div>
       </section>
@@ -701,7 +748,7 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
     <div id="conout" aria-live="polite"></div>
     <div class="conline">
       <span class="conps" aria-hidden="true"><span class="u">mohammed</span><span class="a">@</span><span class="h">arch</span><span class="c">:</span><span class="p">~</span><span class="d">$</span></span>
-      <input id="conin" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal input" placeholder="try 'help'"/>
+      <input id="conin" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Terminal input" placeholder="try 'help'"/>
       <span class="conhint" aria-hidden="true">press <b>/</b> to focus</span>
     </div>
   </div>
@@ -710,142 +757,500 @@ footer .ecur::after{content:"▋";color:var(--pink);animation:blink 1.1s steps(1
 <script>
 (function(){
 "use strict";
-var RM=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-var T0=Date.now();
-var $=function(s){return document.querySelector(s);};
-var $$=function(s){return[].slice.call(document.querySelectorAll(s));};
 
-/* rain */
-var rain=$("#rain"),rCtx,rCols,rDrops,rBright=false;
+/* ------------------------------------------------------------------ *
+ * helpers
+ * ------------------------------------------------------------------ */
+var $  = function(s,r){return (r||document).querySelector(s);};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var mqRM = window.matchMedia ? window.matchMedia("(prefers-reduced-motion:reduce)") : null;
+var RM = !!(mqRM && mqRM.matches);
+var T0 = Date.now();
+var raf = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window)
+        : function(f){return setTimeout(function(){f(Date.now());},16);};
+
+function debounce(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function pad2(n){return (n<10?"0":"")+n;}
+
+/* ------------------------------------------------------------------ *
+ * matrix rain — rAF driven, DPR aware, pauses when tab is hidden
+ * ------------------------------------------------------------------ */
+var rain=$("#rain"),rCtx=null,rDrops=[],rBright=false,rRunning=false,rLast=0,rDPR=1;
 var rCh="アイウエオカキクケコサシスセソタチツテトナニヌネノ01BCDEF/>_#$@%";
-function initRain(){if(!rain||RM)return;rCtx=rain.getContext("2d");sz();window.addEventListener("resize",sz);setInterval(drawRain,62);}
-function sz(){if(!rain)return;rain.width=window.innerWidth;rain.height=window.innerHeight;rCols=Math.floor(rain.width/16);rDrops=[];for(var i=0;i<rCols;i++)rDrops[i]=Math.random()*-130;}
-function drawRain(){if(!rCtx)return;rCtx.fillStyle="rgba(0,0,0,.055)";rCtx.fillRect(0,0,rain.width,rain.height);rCtx.fillStyle=rBright?"rgba(166,227,161,.95)":"rgba(166,227,161,.7)";rCtx.font="13px 'JetBrains Mono',monospace";for(var i=0;i<rDrops.length;i++){rCtx.fillText(rCh[Math.floor(Math.random()*rCh.length)],i*16,rDrops[i]*16);if(rDrops[i]*16>rain.height&&Math.random()>.975)rDrops[i]=0;rDrops[i]++;}}
+var CELL=16, FRAME=62;
 
-/* clock */
-var clk=$("#clock");
-function tick(){if(!clk)return;var d=new Date(),p=function(n){return(n<10?"0":"")+n;};clk.textContent=p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());}
-tick();setInterval(tick,1000);
+function rainResize(){
+  if(!rain||!rCtx)return;
+  rDPR=Math.min(window.devicePixelRatio||1,2);
+  var w=window.innerWidth,h=window.innerHeight;
+  rain.width=Math.floor(w*rDPR);rain.height=Math.floor(h*rDPR);
+  rain.style.width=w+"px";rain.style.height=h+"px";
+  rCtx.setTransform(rDPR,0,0,rDPR,0,0);
+  rCtx.font="13px 'JetBrains Mono',monospace";
+  rCtx.textBaseline="top";
+  var cols=Math.max(1,Math.floor(w/CELL)),next=[];
+  for(var i=0;i<cols;i++) next[i]=(rDrops[i]!==undefined)?rDrops[i]:Math.random()*-130;
+  rDrops=next;
+}
+function rainDraw(){
+  if(!rCtx)return;
+  var w=window.innerWidth,h=window.innerHeight;
+  rCtx.fillStyle="rgba(0,0,0,.055)";rCtx.fillRect(0,0,w,h);
+  rCtx.fillStyle=rBright?"rgba(166,227,161,.95)":"rgba(166,227,161,.7)";
+  for(var i=0;i<rDrops.length;i++){
+    rCtx.fillText(rCh.charAt((Math.random()*rCh.length)|0),i*CELL,rDrops[i]*CELL);
+    if(rDrops[i]*CELL>h && Math.random()>.975) rDrops[i]=0;
+    rDrops[i]++;
+  }
+}
+function rainLoop(ts){
+  if(!rRunning)return;
+  raf(rainLoop);
+  if(ts-rLast<FRAME)return;
+  rLast=ts;
+  rainDraw();
+}
+function rainStart(){
+  if(!rain||RM||rRunning)return;
+  if(!rCtx){rCtx=rain.getContext("2d",{alpha:true});if(!rCtx)return;rainResize();}
+  rRunning=true;rLast=0;raf(rainLoop);
+}
+function rainStop(){rRunning=false;}
+function initRain(){
+  if(!rain||RM)return;
+  rainStart();
+  window.addEventListener("resize",debounce(rainResize,150));
+  window.addEventListener("orientationchange",debounce(rainResize,250));
+  document.addEventListener("visibilitychange",function(){
+    document.hidden?rainStop():rainStart();
+  });
+}
 
-/* progress */
-var prog=$("#progress");
-function onProg(){var h=document.documentElement,max=(h.scrollHeight-h.clientHeight)||1;var pct=Math.min(100,Math.max(0,(h.scrollTop||window.scrollY)/max*100));if(prog)prog.style.width=pct+"%";}
+/* ------------------------------------------------------------------ *
+ * clock — self-correcting, pauses while hidden
+ * ------------------------------------------------------------------ */
+var clk=$("#clock"),clkTimer=null;
+function tick(){
+  if(!clk)return;
+  var d=new Date();
+  clk.textContent=pad2(d.getHours())+":"+pad2(d.getMinutes())+":"+pad2(d.getSeconds());
+}
+function clockStart(){if(clkTimer)return;tick();clkTimer=setInterval(tick,1000);}
+function clockStop(){clearInterval(clkTimer);clkTimer=null;}
+clockStart();
+document.addEventListener("visibilitychange",function(){document.hidden?clockStop():clockStart();});
+
+/* ------------------------------------------------------------------ *
+ * scroll progress — transform based, coalesced into one frame
+ * ------------------------------------------------------------------ */
+var prog=$("#progress"),progQueued=false;
+function paintProg(){
+  progQueued=false;
+  var h=document.documentElement;
+  var max=(h.scrollHeight-h.clientHeight)||1;
+  var pct=Math.min(1,Math.max(0,(window.scrollY||h.scrollTop)/max));
+  if(prog)prog.style.transform="scaleX("+pct+")";
+}
+function onProg(){if(progQueued)return;progQueued=true;raf(paintProg);}
 window.addEventListener("scroll",onProg,{passive:true});
-window.addEventListener("resize",onProg);
+window.addEventListener("resize",onProg,{passive:true});
 
-/* devops logo glitch */
-var dlogo=$("#dlogo");
-function schedG(){if(RM||!dlogo)return;setTimeout(function(){dlogo.classList.add("glitch");setTimeout(function(){dlogo.classList.remove("glitch");schedG();},300);},10000+Math.random()*9000);}
+/* ------------------------------------------------------------------ *
+ * screen glitch
+ * ------------------------------------------------------------------ */
+var twin=$(".twin");
+function glitchScreen(){
+  if(RM||!twin)return;
+  twin.classList.add("glitch");
+  setTimeout(function(){twin.classList.remove("glitch");},190);
+}
 
-/* hero */
-var hcmd=$("#hcmd"),hps=$$(".hp"),dwrap=$("#dwrap");
-function stagger(){if(RM){hps.forEach(function(e){e.classList.add("in");});return;}hps.forEach(function(e,i){setTimeout(function(){e.classList.add("in");},130*i+80);});}
-function typeHero(cb){var text="whoami";if(RM){hcmd.textContent=text;if(dwrap)dwrap.classList.add("in");stagger();if(cb)cb();return;}var i=0;(function step(){if(i<=text.length){hcmd.textContent=text.slice(0,i++);setTimeout(step,55+Math.random()*55);}else{if(dwrap)dwrap.classList.add("in");setTimeout(function(){stagger();schedG();},200);if(cb)cb();}})();}
+/* ------------------------------------------------------------------ *
+ * hero intro
+ * ------------------------------------------------------------------ */
+var hcmd=$("#hcmd"),hps=$$(".hp");
+function stagger(){
+  if(RM){hps.forEach(function(e){e.classList.add("in");});return;}
+  hps.forEach(function(e,i){setTimeout(function(){e.classList.add("in");},130*i+80);});
+}
+function typeHero(cb){
+  var text="whoami";
+  if(!hcmd){if(cb)cb();return;}
+  if(RM){hcmd.textContent=text;stagger();if(cb)cb();return;}
+  var i=0;
+  (function step(){
+    if(i<=text.length){hcmd.textContent=text.slice(0,i++);setTimeout(step,55+Math.random()*55);}
+    else{
+      setTimeout(stagger,200);
+      if(cb)cb();
+    }
+  })();
+}
 
-/* phosphor */
+/* ------------------------------------------------------------------ *
+ * phosphor flash
+ * ------------------------------------------------------------------ */
 var phos=$("#phosphor");
-function runPhos(){if(RM||!phos)return;phos.classList.add("run");phos.addEventListener("animationend",function(){if(phos.parentNode)phos.parentNode.removeChild(phos);},{once:true});}
+function runPhos(){
+  if(RM||!phos)return;
+  phos.classList.add("run");
+  phos.addEventListener("animationend",function(){
+    if(phos.parentNode)phos.parentNode.removeChild(phos);
+  },{once:true});
+}
 
-/* boot */
-var bootEl=$("#boot");
-function runBoot(){if(RM||!bootEl){if(bootEl&&bootEl.parentNode)bootEl.parentNode.removeChild(bootEl);hcmd&&(hcmd.textContent="whoami");if(dwrap)dwrap.classList.add("in");stagger();startObs();initRain();return;}var lines=$$("#boot .bl");lines.forEach(function(ln,i){setTimeout(function(){ln.classList.add("in");},85*i);});setTimeout(function(){bootEl.classList.add("done");setTimeout(function(){if(bootEl.parentNode)bootEl.parentNode.removeChild(bootEl);runPhos();initRain();typeHero(startObs);},520);},85*lines.length+380);}
+/* ------------------------------------------------------------------ *
+ * boot sequence (skippable: click, tap or any key)
+ * ------------------------------------------------------------------ */
+var bootEl=$("#boot"),bootDone=false,bootTimers=[];
+function afterBoot(){
+  if(bootDone)return;bootDone=true;
+  bootTimers.forEach(clearTimeout);bootTimers=[];
+  if(bootEl&&bootEl.parentNode)bootEl.parentNode.removeChild(bootEl);
+  document.body.style.overflow="";
+  runPhos();initRain();typeHero(startObs);
+}
+function skipBoot(){
+  if(bootDone||!bootEl)return;
+  bootTimers.forEach(clearTimeout);bootTimers=[];
+  bootEl.classList.add("done");
+  setTimeout(afterBoot,300);
+}
+function runBoot(){
+  if(RM||!bootEl){
+    if(bootEl&&bootEl.parentNode)bootEl.parentNode.removeChild(bootEl);
+    bootDone=true;
+    if(hcmd)hcmd.textContent="whoami";
+    stagger();startObs();initRain();
+    return;
+  }
+  document.body.style.overflow="hidden";
+  var lines=$$("#boot .bl");
+  lines.forEach(function(ln,i){
+    bootTimers.push(setTimeout(function(){ln.classList.add("in");},85*i));
+  });
+  bootTimers.push(setTimeout(function(){
+    bootEl.classList.add("done");
+    bootTimers.push(setTimeout(afterBoot,520));
+  },85*lines.length+380));
 
-/* nav */
+  bootEl.addEventListener("click",skipBoot);
+  bootEl.addEventListener("touchstart",skipBoot,{passive:true});
+  document.addEventListener("keydown",function onk(e){
+    if(bootDone){document.removeEventListener("keydown",onk);return;}
+    if(e.key==="Tab")return;
+    skipBoot();document.removeEventListener("keydown",onk);
+  });
+}
+
+/* ------------------------------------------------------------------ *
+ * navigation
+ * ------------------------------------------------------------------ */
 var dLinks=$$("#deskNav a"),mLinks=$$(".mnlinks a"),allLinks=dLinks.concat(mLinks);
-function setAct(id){allLinks.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+id);});}
+var curSec="";
+function setAct(id){
+  if(id===curSec)return;
+  curSec=id;
+  allLinks.forEach(function(a){
+    var on=a.getAttribute("href")==="#"+id;
+    a.classList.toggle("active",on);
+    if(on)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current");
+  });
+}
 
-var nbtn=$("#navbtn"),mnav=$("#mobNav"),mnclose=$("#mnclose");
-function openMn(){mnav.classList.add("open");nbtn.classList.add("open");nbtn.setAttribute("aria-expanded","true");mnav.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";}
-function closeMn(){mnav.classList.remove("open");nbtn.classList.remove("open");nbtn.setAttribute("aria-expanded","false");mnav.setAttribute("aria-hidden","true");document.body.style.overflow="";}
-if(nbtn)nbtn.addEventListener("click",function(){mnav.classList.contains("open")?closeMn():openMn();});
+var nbtn=$("#navbtn"),mnav=$("#mobNav"),mnclose=$("#mnclose"),lastFocus=null;
+function openMn(){
+  if(!mnav)return;
+  lastFocus=document.activeElement;
+  mnav.classList.add("open");nbtn.classList.add("open");
+  nbtn.setAttribute("aria-expanded","true");mnav.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  setTimeout(function(){var f=$(".mnlinks a",mnav);if(f)f.focus();},60);
+}
+function closeMn(){
+  if(!mnav)return;
+  mnav.classList.remove("open");nbtn.classList.remove("open");
+  nbtn.setAttribute("aria-expanded","false");mnav.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  lastFocus=null;
+}
+function mnOpen(){return !!(mnav&&mnav.classList.contains("open"));}
+if(nbtn)nbtn.addEventListener("click",function(){mnOpen()?closeMn():openMn();});
 if(mnclose)mnclose.addEventListener("click",closeMn);
 $$("[data-mn]").forEach(function(a){a.addEventListener("click",closeMn);});
-var swX=0;
-if(mnav){mnav.addEventListener("touchstart",function(e){swX=e.touches[0].clientX;},{passive:true});mnav.addEventListener("touchend",function(e){if(e.changedTouches[0].clientX-swX<-60)closeMn();},{passive:true});}
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&mnav&&mnav.classList.contains("open"))closeMn();});
 
+var swX=0,swY=0;
+if(mnav){
+  mnav.addEventListener("touchstart",function(e){swX=e.touches[0].clientX;swY=e.touches[0].clientY;},{passive:true});
+  mnav.addEventListener("touchend",function(e){
+    var dx=e.changedTouches[0].clientX-swX,dy=e.changedTouches[0].clientY-swY;
+    if(dx<-60&&Math.abs(dx)>Math.abs(dy))closeMn();
+  },{passive:true});
+  /* focus trap */
+  mnav.addEventListener("keydown",function(e){
+    if(e.key!=="Tab"||!mnOpen())return;
+    var f=$$("a[href],button",mnav).filter(function(el){return el.offsetParent!==null;});
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  });
+}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&mnOpen())closeMn();});
+
+/* ------------------------------------------------------------------ *
+ * reveal + scroll spy
+ * ------------------------------------------------------------------ */
+var obsStarted=false;
 function startObs(){
+  if(obsStarted)return;obsStarted=true;
   var revEls=$$(".reveal");
-  if("IntersectionObserver" in window&&!RM){var ro=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add("shown");ro.unobserve(en.target);}});},{threshold:.07,rootMargin:"0px 0px -4% 0px"});revEls.forEach(function(el){ro.observe(el);});}
-  else{revEls.forEach(function(el){el.classList.add("shown");});}
+  if("IntersectionObserver" in window && !RM){
+    var ro=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add("shown");ro.unobserve(en.target);}
+      });
+    },{threshold:.07,rootMargin:"0px 0px -4% 0px"});
+    revEls.forEach(function(el){ro.observe(el);});
+  }else{
+    revEls.forEach(function(el){el.classList.add("shown");});
+  }
+
   var secs=allLinks.map(function(a){return document.getElementById(a.getAttribute("href").slice(1));}).filter(Boolean);
   var uniq=secs.filter(function(v,i,a){return a.indexOf(v)===i;});
-  if("IntersectionObserver" in window){var ratios={};var no=new IntersectionObserver(function(entries){entries.forEach(function(en){ratios[en.target.id]=en.isIntersecting?en.intersectionRatio:0;});var best=null,br=0;Object.keys(ratios).forEach(function(id){if(ratios[id]>br){br=ratios[id];best=id;}});if(best)setAct(best);},{threshold:[.1,.25,.5,.75],rootMargin:"-72px 0px -45% 0px"});uniq.forEach(function(s){no.observe(s);});}
-  else{window.addEventListener("scroll",function(){var y=window.scrollY+130,a=uniq[0]?uniq[0].id:null;uniq.forEach(function(s){if(s.offsetTop<=y)a=s.id;});if(a)setAct(a);},{passive:true});}
+
+  if("IntersectionObserver" in window){
+    var ratios={};
+    var no=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ratios[en.target.id]=en.isIntersecting?en.intersectionRatio:0;});
+      var best=null,br=0;
+      Object.keys(ratios).forEach(function(id){if(ratios[id]>br){br=ratios[id];best=id;}});
+      if(best)setAct(best);
+    },{threshold:[.1,.25,.5,.75],rootMargin:"-72px 0px -45% 0px"});
+    uniq.forEach(function(s){no.observe(s);});
+  }else{
+    window.addEventListener("scroll",function(){
+      var y=window.scrollY+130,a=uniq[0]?uniq[0].id:null;
+      uniq.forEach(function(s){if(s.offsetTop<=y)a=s.id;});
+      if(a)setAct(a);
+    },{passive:true});
+  }
+
   setAct("about");onProg();
+
+  /* honour a deep link once the boot screen is gone */
+  var h=location.hash.slice(1);
+  if(h&&document.getElementById(h)){
+    setTimeout(function(){
+      document.getElementById(h).scrollIntoView({behavior:RM?"auto":"smooth",block:"start"});
+      setAct(h);
+    },120);
+  }
 }
-allLinks.forEach(function(a){a.addEventListener("click",function(){allLinks.forEach(function(x){x.classList.remove("active");});a.classList.add("active");});});
+allLinks.forEach(function(a){
+  a.addEventListener("click",function(){setAct(a.getAttribute("href").slice(1));});
+});
 
-/* console */
+/* ------------------------------------------------------------------ *
+ * console
+ * ------------------------------------------------------------------ */
 var conEl=$("#con"),conIn=$("#conin"),conOut=$("#conout");
-var hist=[],hIdx=-1;
+var hist=[],hIdx=-1,HIST_MAX=60;
 var PS1='<span class="cu">mohammed</span><span class="cm">@</span><span class="ch">arch</span><span class="cm">:</span><span class="cm">~</span><span class="cu">$</span> ';
-var LNK={github:"https://github.com/mhammdalbadiah",linkedin:"https://www.linkedin.com/in/mohammed-al-badiah-7b4294321",email:"mailto:m.a.albadiah@gmail.com"};
-var routes={about:"about",whoami:"about",focus:"about",certs:"certs",ls:"certs",projects:"projects",tree:"projects",stack:"stack",which:"stack",roadmap:"roadmap",goals:"roadmap",contact:"contact",connect:"contact"};
-var cmds=["help","about","whoami","certs","ls","projects","tree","stack","which","roadmap","contact","connect","focus","neofetch","resume","github","email","clear","pwd","date","history","exit","uname","uptime","matrix","cowsay","hack","banner","devops"];
+var LNK={
+  github:"https://github.com/mhammdalbadiah",
+  linkedin:"https://www.linkedin.com/in/mohammed-al-badiah-7b4294321",
+  youtube:"https://www.youtube.com/@itsts_11",
+  email:"mailto:m.a.albadiah@gmail.com"
+};
+var routes={about:"about",whoami:"about",focus:"about",certs:"certs",ls:"certs",
+  projects:"projects",tree:"projects",stack:"stack",which:"stack",
+  roadmap:"roadmap",goals:"roadmap",contact:"contact",connect:"contact"};
+var cmds=["help","about","whoami","certs","ls","projects","tree","stack","which","roadmap",
+  "contact","connect","focus","neofetch","resume","github","youtube","email","clear","pwd","date",
+  "history","exit","uname","uptime","matrix","cowsay","hack","banner","devops"];
 
-function xp(h){var d=document.createElement("div");d.className="o";d.innerHTML=h;conOut.appendChild(d);conOut.classList.add("open");conOut.scrollTop=conOut.scrollHeight;}
-function sto(id){var el=document.getElementById(id);if(!el)return;el.scrollIntoView({behavior:RM?"auto":"smooth",block:"start"});setAct(id);}
-function ut(){var s=Math.floor((Date.now()-T0)/1000),m=Math.floor(s/60);s=s%60;return(m>0?m+"m ":"")+s+"s";}
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function xp(html){
+  if(!conOut)return;
+  var d=document.createElement("div");
+  d.className="o";d.innerHTML=html;
+  conOut.appendChild(d);
+  while(conOut.children.length>200)conOut.removeChild(conOut.firstChild);
+  conOut.classList.add("open");
+  conOut.scrollTop=conOut.scrollHeight;
+}
+function sto(id){
+  var el=document.getElementById(id);if(!el)return;
+  el.scrollIntoView({behavior:RM?"auto":"smooth",block:"start"});
+  setAct(id);
+}
+function ut(){
+  var s=Math.floor((Date.now()-T0)/1000),m=Math.floor(s/60);s=s%60;
+  return (m>0?m+"m ":"")+s+"s";
+}
+function openExt(url){
+  var w=window.open(url,"_blank","noopener,noreferrer");
+  if(w)w.opener=null;
+}
 
 function neofetch(){
   var L=['<span class="cs">        /\\        </span>','<span class="cs">       /  \\       </span>','<span class="cs">      /\\   \\      </span>','<span class="cs">     /  __  \\     </span>','<span class="cs">    /  (  )  \\    </span>','<span class="cs">   / _.~  ~._ \\   </span>','<span class="cs">  /.^        ^.\\  </span>','                  ','                  ','                  '];
   var I=['<span class="cu">mohammed</span><span class="cm">@</span><span class="ch">arch</span>','<span class="cm">─────────────────────</span>','<span class="ck">OS</span><span class="cm">:</span>       Arch Linux x86_64','<span class="ck">Host</span><span class="cm">:</span>     portfolio v3.0','<span class="ck">Kernel</span><span class="cm">:</span>   6.9.1-zen','<span class="ck">Shell</span><span class="cm">:</span>    fish','<span class="ck">WM</span><span class="cm">:</span>       Hyprland','<span class="ck">Theme</span><span class="cm">:</span>    Catppuccin Mocha','<span class="ck">Editor</span><span class="cm">:</span>   Neovim','<span class="ck">Uptime</span><span class="cm">:</span>   '+ut()];
   var lines=[];for(var i=0;i<I.length;i++)lines.push((L[i]||'                  ')+I[i]);
-  lines.push('');lines.push('<span class="cs">██</span><span class="cok">██</span><span class="cw">██</span><span class="cp">██</span><span class="ck">██</span><span class="ce">██</span>');
+  lines.push('');
+  lines.push('<span class="cs">██</span><span class="cok">██</span><span class="cw">██</span><span class="cp">██</span><span class="ck">██</span><span class="ce">██</span>');
   xp(lines.join("\n"));
 }
 
 function run(raw){
-  var line=raw.trim();xp(PS1+'<span class="cc">'+esc(raw)+"</span>");
-  if(!line)return;hist.push(line);hIdx=hist.length;
+  var line=String(raw).trim();
+  xp(PS1+'<span class="cc">'+esc(raw)+"</span>");
+  if(!line)return;
+  if(hist[hist.length-1]!==line)hist.push(line);
+  if(hist.length>HIST_MAX)hist.shift();
+  hIdx=hist.length;
+
   var parts=line.split(/\s+/),cmd=parts[0].toLowerCase(),arg=parts.slice(1).join(" ");
-  if(cmd==="help"||cmd==="man"||cmd==="?"){xp('<span class="ck">commands</span>\n  <span class="cc">about</span>/<span class="cc">whoami</span>  certs/<span class="cc">ls</span>  projects/<span class="cc">tree</span>  stack/<span class="cc">which</span>\n  <span class="cc">roadmap</span>  contact/<span class="cc">connect</span>  neofetch  uname  uptime\n  <span class="cc">matrix</span>  <span class="cc">cowsay &lt;text&gt;</span>  <span class="cc">hack</span>  <span class="cc">banner</span>  <span class="cc">devops</span>\n  <span class="cc">resume</span>  <span class="cc">github</span>  <span class="cc">email</span>  pwd  date  history  clear  exit\n  <span class="cm">/=focus  Up/Down=history  Tab=autocomplete  Esc=blur</span>');return;}
+
+  if(cmd==="help"||cmd==="man"||cmd==="?"){xp('<span class="ck">commands</span>\n  <span class="cc">about</span>/<span class="cc">whoami</span>  certs/<span class="cc">ls</span>  projects/<span class="cc">tree</span>  stack/<span class="cc">which</span>\n  <span class="cc">roadmap</span>  contact/<span class="cc">connect</span>  neofetch  uname  uptime\n  <span class="cc">matrix</span>  <span class="cc">cowsay &lt;text&gt;</span>  <span class="cc">hack</span>  <span class="cc">banner</span>  <span class="cc">devops</span>\n  <span class="cc">resume</span>  <span class="cc">github</span>  <span class="cc">youtube</span>  <span class="cc">email</span>  pwd  date  history  clear  exit\n  <span class="cm">/=focus  Up/Down=history  Tab=autocomplete  Esc=blur</span>');return;}
   if(cmd==="clear"||cmd==="cls"){conOut.innerHTML="";conOut.classList.remove("open");return;}
   if(cmd==="pwd"){xp("/home/mohammed/portfolio");return;}
-  if(cmd==="date"){xp(new Date().toString());return;}
+  if(cmd==="date"){xp(esc(new Date().toString()));return;}
   if(cmd==="uptime"){xp('<span class="cok">up '+ut()+'</span>  load: 0.42 0.37 0.29');return;}
   if(cmd==="uname"){xp("Linux arch 6.9.1-zen #1 ZEN SMP x86_64 GNU/Linux");return;}
-  if(cmd==="history"){if(!hist.length){xp('<span class="cm">no history</span>');return;}xp(hist.map(function(h,i){return"  "+(i+1)+"  "+esc(h);}).join("\n"));return;}
+  if(cmd==="history"){
+    if(!hist.length){xp('<span class="cm">no history</span>');return;}
+    xp(hist.map(function(h,i){return "  "+(i+1)+"  "+esc(h);}).join("\n"));return;
+  }
   if(cmd==="echo"){xp(esc(arg));return;}
   if(cmd==="sudo"){xp('<span class="cw">mohammed is not in the sudoers file.</span>');return;}
   if(cmd==="neofetch"){neofetch();return;}
-  if(cmd==="cowsay"){var t=arg||"moo",b="";for(var i=0;i<t.length+2;i++)b+="-";xp(" "+b+"\n< "+esc(t)+" >\n "+b+"\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||");return;}
-  if(cmd==="matrix"){rBright=!rBright;if(rain)rain.classList.toggle("bright",rBright);xp('<span class="cok">matrix rain: '+(rBright?'<span class="cok">INTENSE</span>':'normal')+'</span>');return;}
+  if(cmd==="cowsay"){
+    var t=(arg||"moo").slice(0,120),b="";
+    for(var i=0;i<t.length+2;i++)b+="-";
+    xp(" "+b+"\n< "+esc(t)+" >\n "+b+"\n        \\   ^__^\n         \\  (oo)\\_______\n            (__)\\       )\\/\\\n                ||----w |\n                ||     ||");
+    return;
+  }
+  if(cmd==="matrix"){
+    rBright=!rBright;
+    if(rain)rain.classList.toggle("bright",rBright);
+    xp('<span class="cok">matrix rain: '+(rBright?'<span class="cok">INTENSE</span>':'normal')+'</span>');
+    return;
+  }
   if(cmd==="devops"){xp('<span class="cok">  ____  _______      ___  ____  ____</span>\n<span class="cok"> |  _ \\| ____\\ \\    / / \\|  _ \\/ ___|</span>\n<span class="cs"> | | | |  _|  \\ \\  / / _ \\ |_) \\___ \\</span>\n<span class="cs"> | |_| | |___  \\ \\/ / ___ \\  __/ ___) |</span>\n<span class="ck"> |____/|_____|  \\__/_/   \\_\\_|   |____/</span>');return;}
   if(cmd==="banner"){xp('<span class="cok">  __  __       _                                          _</span>\n<span class="cs"> |  \\/  | ___ | |__   __ _ _ __ ___  _ __ ___   ___  __| |</span>\n<span class="ck"> |_|  |_|\\___/|_| |_|\\__,_|_| |_| |_|_| |_| |_|\\___|\\__,_|</span>');return;}
-  if(cmd==="hack"){xp('<span class="ce">INITIATING HACK SEQUENCE ...</span>');var n=0,iv=setInterval(function(){if(dlogo){dlogo.classList.add("glitch");setTimeout(function(){dlogo.classList.remove("glitch");},90);}if(++n>=7){clearInterval(iv);xp('<span class="cok">ACCESS GRANTED — welcome, hacker.</span>');}},220);return;}
-  if(cmd==="resume"){xp('<span class="cok">opening LinkedIn …</span>');window.open(LNK.linkedin,"_blank","noopener");return;}
-  if(cmd==="github"){xp('<span class="cok">opening GitHub …</span>');window.open(LNK.github,"_blank","noopener");return;}
-  if(cmd==="email"||cmd==="mail"){xp('<span class="cok">opening mail …</span>');window.open(LNK.email,"_self","noopener");return;}
-  if(cmd==="exit"||cmd==="logout"){xp('<span class="cok">logout — connection closed.</span>');window.scrollTo({top:0,behavior:RM?"auto":"smooth"});return;}
-  if(cmd==="cat"){if(/focus/.test(arg)){xp('<span class="cok">→ ~/focus.md</span>');sto("about");return;}if(/tools/.test(arg)){xp('<span class="cok">→ tools.txt</span>');sto("stack");return;}if(/roadmap/.test(arg)){xp('<span class="cok">→ ~/goals/roadmap.md</span>');sto("roadmap");return;}xp('<span class="ce">cat: '+esc(arg||"")+': No such file</span>');return;}
+  if(cmd==="hack"){
+    xp('<span class="ce">INITIATING HACK SEQUENCE ...</span>');
+    var n=0,iv=setInterval(function(){
+      glitchScreen();
+      if(++n>=7){clearInterval(iv);xp('<span class="cok">ACCESS GRANTED — welcome, hacker.</span>');}
+    },220);
+    return;
+  }
+  if(cmd==="resume"){xp('<span class="cok">opening LinkedIn …</span>');openExt(LNK.linkedin);return;}
+  if(cmd==="github"){xp('<span class="cok">opening GitHub …</span>');openExt(LNK.github);return;}
+  if(cmd==="youtube"||cmd==="yt"){xp('<span class="cok">opening YouTube …</span>');openExt(LNK.youtube);return;}
+  if(cmd==="email"||cmd==="mail"){xp('<span class="cok">opening mail …</span>');window.location.href=LNK.email;return;}
+  if(cmd==="exit"||cmd==="logout"){
+    xp('<span class="cok">logout — connection closed.</span>');
+    window.scrollTo({top:0,behavior:RM?"auto":"smooth"});
+    return;
+  }
+  if(cmd==="cat"){
+    if(/focus/.test(arg)){xp('<span class="cok">→ ~/focus.md</span>');sto("about");return;}
+    if(/tools/.test(arg)){xp('<span class="cok">→ tools.txt</span>');sto("stack");return;}
+    if(/roadmap/.test(arg)){xp('<span class="cok">→ ~/goals/roadmap.md</span>');sto("roadmap");return;}
+    xp('<span class="ce">cat: '+esc(arg||"")+': No such file</span>');return;
+  }
   if(cmd==="./connect.sh"){xp('<span class="cok">running ./connect.sh</span>');sto("contact");return;}
-  if(routes.hasOwnProperty(cmd)){xp('<span class="cok">→ '+routes[cmd]+"</span>");sto(routes[cmd]);return;}
+  if(Object.prototype.hasOwnProperty.call(routes,cmd)){
+    xp('<span class="cok">→ '+routes[cmd]+"</span>");sto(routes[cmd]);return;
+  }
   xp('<span class="ce">command not found: '+esc(cmd)+'</span> — try <span class="ck">help</span>');
 }
 
-function mend(el){setTimeout(function(){var n=el.value.length;try{el.setSelectionRange(n,n);}catch(e){}},0);}
+function mend(el){
+  setTimeout(function(){var n=el.value.length;try{el.setSelectionRange(n,n);}catch(e){}},0);
+}
+function commonPrefix(list){
+  if(!list.length)return "";
+  var p=list[0];
+  for(var i=1;i<list.length;i++){
+    var j=0;
+    while(j<p.length&&j<list[i].length&&p.charAt(j)===list[i].charAt(j))j++;
+    p=p.slice(0,j);
+  }
+  return p;
+}
 
 if(conIn){
   conIn.addEventListener("keydown",function(e){
     if(e.key==="Enter"){run(conIn.value);conIn.value="";}
     else if(e.key==="ArrowUp"){e.preventDefault();if(hist.length){hIdx=Math.max(0,hIdx-1);conIn.value=hist[hIdx]||"";mend(conIn);}}
     else if(e.key==="ArrowDown"){e.preventDefault();if(hist.length){hIdx=Math.min(hist.length,hIdx+1);conIn.value=hist[hIdx]||"";mend(conIn);}}
-    else if(e.key==="Tab"){e.preventDefault();var f=conIn.value.trim().toLowerCase();if(f){var h=cmds.filter(function(c){return c.indexOf(f)===0;});if(h.length===1)conIn.value=h[0];else if(h.length>1)xp('<span class="cm">'+h.join("  ")+"</span>");}}
+    else if(e.key==="Tab"){
+      e.preventDefault();
+      var f=conIn.value.trim().toLowerCase();
+      if(!f)return;
+      var h=cmds.filter(function(c){return c.indexOf(f)===0;});
+      if(h.length===1){conIn.value=h[0];mend(conIn);}
+      else if(h.length>1){
+        var p=commonPrefix(h);
+        if(p.length>f.length){conIn.value=p;mend(conIn);}
+        xp('<span class="cm">'+h.join("  ")+"</span>");
+      }
+    }
     else if(e.key==="Escape"){conIn.blur();}
+    else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="l"){
+      e.preventDefault();conOut.innerHTML="";conOut.classList.remove("open");
+    }
+    else if(e.ctrlKey&&e.key.toLowerCase()==="c"&&!window.getSelection().toString()){
+      e.preventDefault();
+      xp(PS1+'<span class="cc">'+esc(conIn.value)+'</span><span class="ce">^C</span>');
+      conIn.value="";hIdx=hist.length;
+    }
   });
   conIn.addEventListener("focus",function(){conEl.classList.add("focused");});
   conIn.addEventListener("blur",function(){conEl.classList.remove("focused");});
 }
+if(conOut){
+  conOut.addEventListener("click",function(e){
+    if(e.target.tagName!=="A"&&conIn&&!window.getSelection().toString())conIn.focus();
+  });
+}
 document.addEventListener("keydown",function(e){
-  var tag=(document.activeElement&&document.activeElement.tagName)||"";
-  if(e.key==="/"&&tag!=="INPUT"&&tag!=="TEXTAREA"){e.preventDefault();if(conIn)conIn.focus();}
+  if(e.key!=="/"||e.ctrlKey||e.metaKey||e.altKey)return;
+  var el=document.activeElement,tag=(el&&el.tagName)||"";
+  if(tag==="INPUT"||tag==="TEXTAREA"||(el&&el.isContentEditable))return;
+  e.preventDefault();
+  if(conIn)conIn.focus();
 });
 
-if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",runBoot);}
-else{runBoot();}
+/* ------------------------------------------------------------------ *
+ * react to a live change of the reduced-motion preference
+ * ------------------------------------------------------------------ */
+if(mqRM){
+  var onRM=function(){
+    RM=mqRM.matches;
+    if(RM)rainStop();else rainStart();
+  };
+  if(mqRM.addEventListener)mqRM.addEventListener("change",onRM);
+  else if(mqRM.addListener)mqRM.addListener(onRM);
+}
+
+/* ------------------------------------------------------------------ *
+ * go
+ * ------------------------------------------------------------------ */
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",runBoot);
+else runBoot();
+
+/* safety net: never leave the visitor stranded on the boot screen */
+window.addEventListener("load",function(){
+  setTimeout(function(){if(!bootDone)afterBoot();},6000);
+});
 })();
 </script>
 </body>
